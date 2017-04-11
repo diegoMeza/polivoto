@@ -15,17 +15,22 @@ para acceder a ella desde aplicaciones web, iOS y Android.
 ```
 * Angular
 ```
-Es un framework de JavaScript, que se utiliza para crear y mantener aplicaciones web de una sola página. Su objetivo es aumentar las aplicaciones basadas en navegador con capacidad de Modelo Vista Controlador (MVC), en un esfuerzo para hacer que el desarrollo y las pruebas sean más fáciles.
+Es un framework de JavaScript, que se utiliza para crear y mantener 
+aplicaciones web de una sola página. Su objetivo es aumentar las 
+aplicaciones basadas en navegador con capacidad de Modelo Vista Controlador (MVC),
+en un esfuerzo para hacer que el desarrollo y las pruebas sean más fáciles.
 ```
 * RxJs
 ```
-Es una Librería que nos proporciona programación reactiva el cual un nuevo paradigma orientado a programar basado en flujos de datos que son los encargados de transmitir los cambios a nuestra aplicación.
+Es una Librería que nos proporciona programación reactiva el cual un nuevo paradigma
+orientado a programar basado en flujos de datos que son los encargados de transmitir los cambios a nuestra aplicación.
 ```
 
 FrontEnd
 -------
 * Angular Material
 ```
-Es una normativa de diseño enfocado en la visualización del sistema operativo Android , además en la web y en cualquier plataforma.
+Es una normativa de diseño enfocado en la visualización del sistema operativo Android , 
+además en la web y en cualquier plataforma.
 
 ```
