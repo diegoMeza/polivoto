@@ -5,6 +5,7 @@ Las tecnologías que se van a implementar es un API (Application Programming Int
 
 ```
 Backend
+-------
 *Firebase
 Es un (Saas) servicio capaz de proveernos de un Backend en la nube con una fuente de datos en tiempo real y librerías para acceder a ella desde aplicaciones web, iOS y Android.
 
@@ -14,9 +15,11 @@ Es un framework de JavaScript, que se utiliza para crear y mantener aplicaciones
 *RxJs
 Es una Librería que nos proporciona programación reactiva el cual un nuevo paradigma orientado a programar basado en flujos de datos que son los encargados de transmitir los cambios a nuestra aplicación.
 ```
-```
+
 FrontEnd
+-------
 *Angular Material
-es una normativa de diseño enfocado en la visualización del sistema operativo Android , además en la web y en cualquier plataforma.
+```
+Es una normativa de diseño enfocado en la visualización del sistema operativo Android , además en la web y en cualquier plataforma.
 
 ```
