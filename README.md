@@ -9,7 +9,9 @@ Backend
 
 * Firebase
 ```
-Es un (Saas) servicio capaz de proveernos de un Backend en la nube con una fuente de datos en tiempo real y librerías para acceder a ella desde aplicaciones web, iOS y Android.
+Es un (Saas) servicio capaz de proveernos de un Backend
+en la nube con una fuente de datos en tiempo real y librerías
+para acceder a ella desde aplicaciones web, iOS y Android.
 ```
 * Angular
 ```
