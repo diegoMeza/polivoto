@@ -1,13 +1,12 @@
-/**
- * Created by darkklitos on 14/04/17.
- */
-
 import { RouterModule, Routes } from "@angular/router";
+import { HomeComponent } from "./componentes/home/home.component";
 
 const ROUTES : Routes = [
-  // { path: 'nombre_ruta', component: nombreComponent },
-  // { path: 'nombre_ruta/:id', component: nombreComponent },
-  // { path: '**', pathMatch: 'full', redirectTo: 'nombre_ruta' },
+  { path: "home", component: HomeComponent },
+  // { path: "buscar", component: SearchComponent },
+  // { path: "artista/:id", component: ArtistaComponent },
+  { path: "**", pathMatch: "full", redirectTo: "home" }
 ];
-
-export const APP_ROUTING = RouterModule.forRoot ( ROUTES );
+export class RoutingModule {
+}
+export const APP_ROUTING = RouterModule.forRoot ( ROUTES, { useHash: true } );
