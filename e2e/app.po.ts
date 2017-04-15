@@ -1,6 +1,10 @@
 import { browser, element, by } from 'protractor';
 
+<<<<<<< HEAD
 export class PoliVotoPage {
+=======
+export class PolivotoPage {
+>>>>>>> Realizando cambios .gitignore
   navigateTo() {
     return browser.get('/');
   }

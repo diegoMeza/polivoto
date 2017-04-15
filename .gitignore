@@ -70,4 +70,8 @@ dll/
 *.ngfactory.ts
 *.css.shim.ts
 *.ngsummary.json
+<<<<<<< HEAD
 *.shim.ngstyle.ts
+=======
+*.shim.ngstyle.ts
+>>>>>>> Realizando cambios .gitignore
