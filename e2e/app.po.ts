@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class PolivotoPage {
+export class FirechatPage {
   navigateTo() {
     return browser.get('/');
   }

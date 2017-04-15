@@ -2,7 +2,7 @@
  * Created by darkklitos on 14/04/17.
  */
 
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from "@angular/router";
 
 const ROUTES : Routes = [
   // { path: 'nombre_ruta', component: nombreComponent },

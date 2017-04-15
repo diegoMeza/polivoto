@@ -1,10 +1,10 @@
-import { PolivotoPage } from './app.po';
+import { FirechatPage } from './app.po';
 
-describe('polivoto App', () => {
-  let page: PolivotoPage;
+describe('firechat App', () => {
+  let page: FirechatPage;
 
   beforeEach(() => {
-    page = new PolivotoPage();
+    page = new FirechatPage();
   });
 
   it('should display message saying app works', () => {
