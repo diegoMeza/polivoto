@@ -7,10 +7,12 @@ import { AngularFireModule } from "angularfire2";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule ( {
   declarations: [
     AppComponent,
+    NavbarComponent,
   ],
   imports     : [
     BrowserModule,
