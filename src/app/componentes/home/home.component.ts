@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component ( {
   selector   : "app-home",
@@ -12,8 +13,16 @@ export class HomeComponent implements OnInit {
     { "noEleccion": "Fondo Empleados", "noCand": 5, "feInicio": "20-03-2017", "feFin": "31-03-2017" },
     { "noEleccion": "Comite Emergencia", "noCand": 6, "feInicio": "15-04-2017", "feFin": "20-04-2017" }
   ];
+  forma : FormGroup;
   
-  constructor () {
+  constructor ( private fb : FormBuilder ) {
+    this.forma = fb.group ( {
+      "email"   : [ "", [
+        Validators.required,
+        Validators.pattern ( /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/ ) ] ],
+      "password": [ "", Validators.required ],
+    } )
+    ;
   }
   
   ngOnInit () {
@@ -21,5 +30,10 @@ export class HomeComponent implements OnInit {
   
   selectCar ( car : any ) {
     console.log ( car );
+  }
+  
+  guardarCambios () {
+    console.log ( this.forma.value );
+    console.log ( this.forma );
   }
 }
