@@ -1,9 +1,13 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { MdTabsModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
+import "hammerjs";
+import { ButtonModule, DataTableModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
@@ -26,7 +30,12 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp ( firebaseConfig ),
-    APP_ROUTING
+    BrowserAnimationsModule,
+    MdTabsModule,
+    APP_ROUTING,
+    DataTableModule,
+    SharedModule,
+    ButtonModule
   ],
   providers   : [],
   bootstrap   : [ AppComponent ]
