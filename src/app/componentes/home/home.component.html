@@ -1,14 +1,14 @@
 <md-tab-group>
 
-  <md-tab label="Ingresar">
+  <md-tab *ngIf="!_authServices.user" label="Ingresar">
     <hr>
 
     <div class="container text-center">
       <!--<form [formGroup]="forma">-->
-      <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
+      <form [formGroup]="forma" (ngSubmit)="login()">
 
         <!--<div class="form-group row" [ngClass]="{ 'has-danger':(email.errors?.required || email.errors?.pattern) && email.touched  }">-->
-        <div class="form-group row" [ngClass]=" { 'has-danger': (!forma.controls['email'].valid) && forma.controls['email'].touched}">
+        <div class="form-group row" [ngClass]=" { 'has-danger': (!forma.controls['email'].valid || forma.get('email').hasError('pattern')) && forma.controls['email'].touched}">
           <label class="col-4 col-form-label text-right">Correo</label>
           <div class="col-6">
 
@@ -18,10 +18,10 @@
                    required
                    formControlName="email"
             >
-            <div *ngIf="(forma.get('email').errors?.required) && forma.controls['email'].touched" class="form-control-feedback">
+            <div *ngIf="(forma.get('email').hasError('required') && forma.controls['email'].touched)" class="form-control-feedback">
               El campo es requerido
             </div>
-            <div *ngIf="forma.get('email').errors?.pattern" class="form-control-feedback">
+            <div *ngIf="forma.get('email').hasError('pattern')" class="form-control-feedback">
               El tipo de correo es invalido
             </div>
           </div>
@@ -47,7 +47,9 @@
         <div class="form-group row">
           <label class="col-4 col-form-label">&nbsp;</label>
           <div class="input-group col-md-6">
-            <button type="submit" class="btn btn-outline-primary puntero">
+            <button type="submit"
+                    class="btn btn-outline-primary puntero"
+            >
               Guardar
             </button>
           </div>
@@ -204,3 +206,4 @@
   </md-tab>
 </md-tab-group>
 
+<p-growl [value]="msgs"></p-growl>

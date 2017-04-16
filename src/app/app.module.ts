@@ -22,6 +22,7 @@ import { LoginComponent } from "./componentes/login/login.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
 import { KeysPipe } from "./pipes/keys.pipe";
+import { AuthService } from "./services/auth.service";
 import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
@@ -59,7 +60,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
   ],
   providers   : [ { provide: LOCALE_ID, useValue: "es" },
     VotacionService,
-    VotoService
+    VotoService,
+    AuthService
   ],
   bootstrap   : [ AppComponent ]
 } )

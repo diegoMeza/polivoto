@@ -35,10 +35,18 @@
         <a class="nav-link" [routerLink]="['votos']">Votos</a>
       </li>
 
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Buscar...">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
+
+    <span class="navbar-text logo-principal puntero salir"
+          (click)="salir()"
+          *ngIf="_authServices.user"
+    >
+      Salir
+    </span>
   </div>
 </nav>
