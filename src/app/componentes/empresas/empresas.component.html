@@ -1,0 +1,59 @@
+<h1>Empresas</h1>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-outline-primary puntero"
+            type="button"
+            name="button"
+            [routerLink]="['/empresa', 'nuevo']"
+    >
+      Nueva Empresa <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Nit</th>
+          <th>Fecha Creación</th>
+          <th>Estado</th>
+          <th class="text-right w120">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr *ngFor="let k of heroes| keys; let i = index">-->
+        <tr *ngFor="let empresa of empresas; let i = index">
+          <td>{{i+1}}</td>
+          <!--<td>1</td>-->
+          <td>{{empresa.nombre}}</td>
+          <td>890100577-4</td>
+          <td>{{empresa.fechaCreacion | date:'dd-MMMM-yyyy'}}</td>
+          <td>
+            <md-checkbox [(ngModel)]="empresa.estado"
+                         class="example-margin"
+                         disabled="true">
+              {{empresa.estado?'Activa':'Inactiva'}}
+            </md-checkbox>
+          </td>
+          <td class="text-right w120">
+            <button class="btn btn-outline-success puntero"
+                    [routerLink]="['/empresa', empresa.key$]"
+            ><i class="fa fa-pencil" aria-hidden="true"></i> Editar
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>

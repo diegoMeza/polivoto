@@ -1,21 +1,25 @@
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
-import { MdTabsModule } from "@angular/material";
+import { MdCheckboxModule, MdTabsModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MomentModule } from "angular2-moment";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
 import "hammerjs";
-import { ButtonModule, DataTableModule, SharedModule } from "primeng/primeng";
+import { ButtonModule, CheckboxModule, DataTableModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
 // Configuracion Rutas
 import { APP_ROUTING } from "./app.routes";
+import { EmpresaComponent } from "./componentes/empresa/empresa.component";
+import { EmpresasComponent } from "./componentes/empresas/empresas.component";
 
 import { HomeComponent } from "./componentes/home/home.component";
 import { LoginComponent } from "./componentes/login/login.component";
+import { VotacionService } from "./services/votacion.service";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
 
 @NgModule ( {
@@ -24,6 +28,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     NavbarComponent,
     LoginComponent,
     HomeComponent,
+    EmpresaComponent,
+    EmpresasComponent,
   ],
   imports     : [
     BrowserModule,
@@ -32,13 +38,17 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     AngularFireModule.initializeApp ( firebaseConfig ),
     BrowserAnimationsModule,
     MdTabsModule,
+    MdCheckboxModule,
     APP_ROUTING,
     DataTableModule,
     SharedModule,
     ButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MomentModule,
+    CheckboxModule
   ],
-  providers   : [],
+  providers   : [ { provide: LOCALE_ID, useValue: "es" },
+    VotacionService ],
   bootstrap   : [ AppComponent ]
 } )
 export class AppModule {

@@ -47,14 +47,11 @@
         <div class="form-group row">
           <label class="col-4 col-form-label">&nbsp;</label>
           <div class="input-group col-md-6">
-            <button type="submit" class="btn btn-outline-primary">
+            <button type="submit" class="btn btn-outline-primary puntero">
               Guardar
             </button>
           </div>
         </div>
-        {{forma.valid}}
-        <br>
-        {{forma.status}}
       </form>
 
     </div>
@@ -78,7 +75,7 @@
             </p>
             <button
               type="button"
-              class="btn btn-outline-primary btn-block"
+              class="btn btn-outline-primary btn-block puntero"
               (click)="verHeroe(i)"
             >Ver mas...
             </button>
@@ -199,7 +196,7 @@
       <p-column header="Inscripción">
         <ng-template let-car="rowData" pTemplate="body">
           <div class="text-center">
-            <button class="btn btn-outline-success" (click)="selectCar(car)">Inscribirse <i class="fa fa-check" aria-hidden="true"></i></button>
+            <button class="btn btn-outline-success puntero" (click)="selectCar(car)">Inscribirse <i class="fa fa-check" aria-hidden="true"></i></button>
           </div>
         </ng-template>
       </p-column>
