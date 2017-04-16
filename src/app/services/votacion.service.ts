@@ -7,7 +7,7 @@ import { Empresa } from "../interfaces/Empresa";
 export class VotacionService {
   
   empresas : any[] = [];
-    
+  
   constructor ( private af : AngularFire ) {
   }
   

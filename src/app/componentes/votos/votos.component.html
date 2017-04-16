@@ -1,0 +1,64 @@
+<h1>Tipos de Voto</h1>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-outline-primary puntero"
+            type="button"
+            name="button"
+            [routerLink]="['/voto', 'nuevo']"
+    >
+      Nuevo Voto <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Valor</th>
+          <th>Fecha Creación</th>
+          <th class="text-right w120">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr *ngFor="let k of heroes| keys; let i = index">-->
+        <tr *ngFor="let voto of votos; let i = index">
+          <td>{{ i+1 }}</td>
+          <!--<td>1</td>-->
+          <td>{{ voto.nombre }}</td>
+          <td>{{ voto.valor }}</td>
+          <td>{{ voto.fechaCreacion | date:'dd-MMMM-yyyy'}}</td>
+          <td class="text-right w120">
+            <button class="btn btn-outline-success puntero"
+                    [routerLink]="['/voto', voto.$key]"
+            ><i class="fa fa-pencil" aria-hidden="true"></i> Editar
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(votos).length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
+
+
+    </div>
+  </div>
+</div>

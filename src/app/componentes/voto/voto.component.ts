@@ -3,18 +3,18 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Message } from "primeng/primeng";
 import { Subscription } from "rxjs/Subscription";
-import { VotacionService } from "../../services/votacion.service";
+import { VotoService } from "../../services/voto.service";
 
 @Component ( {
-  selector   : "app-empresa",
-  templateUrl: "./empresa.component.html",
-  styleUrls  : [ "./empresa.component.css" ]
+  selector   : "app-voto",
+  templateUrl: "./voto.component.html",
+  styleUrls  : [ "./voto.component.css" ]
 } )
-export class EmpresaComponent implements OnInit {
-  empresa : any = {
+export class VotoComponent implements OnInit {
+  
+  voto : any = {
     nombre       : "",
-    nit          : null,
-    estado       : false,
+    valor        : null,
     fechaCreacion: new Date ()
   };
   nuevo : boolean = false;
@@ -22,7 +22,7 @@ export class EmpresaComponent implements OnInit {
   private subscription : Subscription;
   msgs : Message[] = [];
   
-  constructor ( private _votacionService : VotacionService,
+  constructor ( private _votoService : VotoService,
                 private router : Router,
                 private route : ActivatedRoute ) {
     
@@ -36,8 +36,8 @@ export class EmpresaComponent implements OnInit {
         this.id = parametro[ "id" ];
         console.log ( this.id );
         if ( this.id !== "nuevo" ) {
-          this.subscription = this._votacionService.getEmpresa ( this.id )
-            .subscribe ( item => this.empresa = item );
+          this.subscription = this._votoService.getVoto ( this.id )
+            .subscribe ( item => this.voto = item );
         }
       } );
   }
@@ -45,13 +45,13 @@ export class EmpresaComponent implements OnInit {
   guardar ( forma : NgForm ) {
     console.log ( "envio: ", forma );
     //
-    console.log ( this.empresa );
+    console.log ( this.voto );
     
     if ( this.id === "nuevo" ) {
       // Insertando
-      this.empresa.fechaCreacion = new Date ().getTime ();
-      console.log ( "Asignando fecha: ", this.empresa );
-      this._votacionService.nuevaEmpresa ( this.empresa )
+      this.voto.fechaCreacion = new Date ().getTime ();
+      console.log ( "Asignando fecha: ", this.voto );
+      this._votoService.nuevoVoto ( this.voto )
         .then ( () => {
           console.log ( "Hecho...!" );
           this.mensajeGuardado ();
@@ -62,7 +62,7 @@ export class EmpresaComponent implements OnInit {
         } );
     } else {
       // Actualizando
-      this._votacionService.actualizarEmpresa ( this.empresa, this.id )
+      this._votoService.actualizarVoto ( this.voto, this.id )
         .then ( data => {
             this.mensajeGuardado ();
           },
@@ -74,7 +74,7 @@ export class EmpresaComponent implements OnInit {
   }
   
   agregarNuevo ( forma : NgForm ) {
-    this.router.navigate ( [ "/empresa", "nuevo" ] );
+    this.router.navigate ( [ "/voto", "nuevo" ] );
     forma.reset ();
   }
   
