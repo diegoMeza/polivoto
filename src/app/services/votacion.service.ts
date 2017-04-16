@@ -1,28 +1,13 @@
 import { Injectable } from "@angular/core";
-import { AngularFire } from "angularfire2";
+import { AngularFire, FirebaseListObservable } from "angularfire2";
 import { Empresa } from "../interfaces/Empresa";
 
 
 @Injectable ()
 export class VotacionService {
   
-  empresas : any[] = [ {
-    key$         : "abc",
-    nombre       : "Aviatur S.A",
-    nit          : 890100577,
-    estado       : true,
-    fechaCreacion: new Date ()
-  }, {
-    key$         : "def",
-    nombre       : "Avianca S.A.",
-    nit          : 860003524,
-    estado       : false,
-    fechaCreacion: new Date ( "2017/01/19" )
-  } ];
-  
-  temp : any[] = [];
-  emp : any;
-  
+  empresas : any[] = [];
+    
   constructor ( private af : AngularFire ) {
   }
   
@@ -36,29 +21,20 @@ export class VotacionService {
       } );
   }
   
-  getEmpresas () {
-    return this.empresas;
+  getEmpresas () : FirebaseListObservable<any> {
+    return this.af.database.list ( "empresas" );
   }
   
   getEmpresa ( id : string ) : any {
-    this.temp = this.empresas.filter ( ( empresa ) => {
-      return empresa.key$ === id;
-    } );
-    return this.temp[ 0 ];
+    return this.af.database.object ( "/empresas/" + id );
   }
   
   nuevaEmpresa ( empresa : string ) {
-    this.empresas.push ( empresa );
+    return this.af.database.list ( "empresas" ).push ( empresa );
   }
   
   actualizarEmpresa ( empresa : Empresa, id : string ) {
-    
-    for ( this.emp in this.empresas ) {
-      if ( this.emp.id === id ) {
-        this.emp.nombre = empresa.nombre;
-      }
-    }
-    return this.empresas;
+    return this.af.database.list ( "empresas" ).update ( id, empresa );
   }
   
 }

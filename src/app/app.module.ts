@@ -8,7 +8,7 @@ import { MomentModule } from "angular2-moment";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
 import "hammerjs";
-import { ButtonModule, CheckboxModule, DataTableModule, SharedModule } from "primeng/primeng";
+import { ButtonModule, CheckboxModule, DataTableModule, GrowlModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
@@ -21,6 +21,7 @@ import { HomeComponent } from "./componentes/home/home.component";
 import { LoginComponent } from "./componentes/login/login.component";
 import { VotacionService } from "./services/votacion.service";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule ( {
   declarations: [
@@ -30,6 +31,7 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     HomeComponent,
     EmpresaComponent,
     EmpresasComponent,
+    KeysPipe,
   ],
   imports     : [
     BrowserModule,
@@ -45,7 +47,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     ButtonModule,
     ReactiveFormsModule,
     MomentModule,
-    CheckboxModule
+    CheckboxModule,
+    GrowlModule
   ],
   providers   : [ { provide: LOCALE_ID, useValue: "es" },
     VotacionService ],

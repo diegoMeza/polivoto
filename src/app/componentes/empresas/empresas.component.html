@@ -34,7 +34,7 @@
           <td>{{i+1}}</td>
           <!--<td>1</td>-->
           <td>{{empresa.nombre}}</td>
-          <td>890100577-4</td>
+          <td>{{empresa.nit}}</td>
           <td>{{empresa.fechaCreacion | date:'dd-MMMM-yyyy'}}</td>
           <td>
             <md-checkbox [(ngModel)]="empresa.estado"
@@ -45,13 +45,26 @@
           </td>
           <td class="text-right w120">
             <button class="btn btn-outline-success puntero"
-                    [routerLink]="['/empresa', empresa.key$]"
+                    [routerLink]="['/empresa', empresa.$key]"
             ><i class="fa fa-pencil" aria-hidden="true"></i> Editar
             </button>
           </td>
         </tr>
         </tbody>
       </table>
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(empresas).length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
 
 
     </div>
