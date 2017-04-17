@@ -23,14 +23,12 @@ export class HomeComponent implements OnInit {
   
   
   constructor ( private fb : FormBuilder,
-                private _authServices : AuthService,
+                public _authServices : AuthService,
                 private af : AngularFire ) {
     
     this.af.auth.subscribe ( ( data ) => {
       if ( data ) {
         console.log ( "datos Login", data );
-      } else {
-        this.forma.reset ();
       }
     } );
     

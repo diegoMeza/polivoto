@@ -1,0 +1,188 @@
+<h3>Usuario</h3>
+<button class="btn btn-outline-danger puntero"
+        [routerLink]="['/usuarios']"
+>
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+</button>
+<button class="btn btn-outline-success puntero"
+        (click)="agregarNuevo(forma)"
+>Nuevo Usuario <i class="fa fa-plus" aria-hidden="true"></i>
+</button>
+<hr>
+{{usuario | json}}
+<div class="row animated fadeIn fast fomulario">
+  <div class="col-md-12">
+
+    <h4>
+      {{tituloFormulario}}
+    </h4>
+    <hr>
+
+    <form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger':(nombre.errors?.required  || nombre.errors?.minlength) && nombre.touched }">
+        <label class="col-4 col-form-label text-right">Nombre del Usuario</label>
+        <div class="col-6">
+          <input type="text"
+                 [(ngModel)]="usuario.nombre"
+                 name="nombre"
+                 class="form-control"
+                 required
+                 minlength="5"
+                 placeholder="Nombre del Usuario"
+                 #nombre="ngModel"
+          >
+          <div *ngIf="(nombre.errors?.required )&& nombre.touched"
+               class="form-control-feedback">
+            El campo es requerido
+          </div>
+          <div *ngIf="nombre.errors?.minlength"
+               class="form-control-feedback">
+            Superior a {{nombre.errors.minlength.requiredLength}} caracteres
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger':(email.errors?.required || email.errors?.pattern) && email.touched  }">
+        <label class="col-4 col-form-label text-right">Email</label>
+        <div class="col-6">
+
+          <input class="form-control"
+                 type="email"
+                 placeholder="Email"
+                 [(ngModel)]="usuario.email"
+                 name="email"
+                 required
+                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                 #email="ngModel"
+          >
+          <div *ngIf="email.errors?.required" class="form-control-feedback">
+            El campo es requerido
+          </div>
+          <div *ngIf="email.errors?.pattern" class="form-control-feedback">
+            El tipo de correo es invalido
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger':(cedula.errors?.required  || cedula.errors?.minlength) && cedula.touched }">
+        <label class="col-4 col-form-label text-right">Documento Identificación</label>
+        <div class="col-6">
+          <input type="number"
+                 [(ngModel)]="usuario.cedula"
+                 name="cedula"
+                 class="form-control"
+                 required
+                 minlength="5"
+                 placeholder="Documento Identificación"
+                 #cedula="ngModel"
+
+          >
+          <div *ngIf="(cedula.errors?.required) && cedula.touched"
+               class="form-control-feedback">
+            El campo es requerido
+          </div>
+          <div *ngIf="cedula.errors?.minlength"
+               class="form-control-feedback">
+            Superior a {{cedula.errors.minlength.requiredLength}} números
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Genero</label>
+        <div class="col-6">
+
+          <md-radio-group class="example-radio-group"
+                          [(ngModel)]="usuario.genero"
+                          #genero="ngModel"
+                          name="genero"
+                          required
+          >
+            <md-radio-button class="example-radio-button margen-derecho-15"
+                             *ngFor="let gen of generos"
+                             [value]="gen">
+              {{gen}}
+            </md-radio-button>
+          </md-radio-group>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Rol</label>
+        <div class="col-6">
+
+          <md-radio-group class="example-radio-group"
+                          [(ngModel)]="usuario.rolUsuario"
+                          #genero="ngModel"
+                          name="rol"
+                          required
+          >
+            <md-radio-button class="example-radio-button margen-derecho-15"
+                             *ngFor="let r of roles"
+                             [value]="r">
+              {{r}}
+            </md-radio-button>
+          </md-radio-group>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Nombre de la Empresa</label>
+        <div class="col-6">
+
+          <md-select placeholder="Lista de Empresas"
+                     [(ngModel)]="usuario.idEmpresa"
+                     name="empresa"
+
+          >
+            <md-option *ngFor="let empresa of empresas"
+                       [value]="empresa.$key"
+                       (click)="guardarEmpresa(empresa)"
+            >
+              {{empresa.nombre}}
+            </md-option>
+          </md-select>
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Fecha de Creación</label>
+        <div class="col-6">
+          <p-calendar [(ngModel)]="usuario.fechaNacimiento"
+                      [showIcon]="true"
+                      required
+                      #fechaNacimiento="ngModel"
+                      name="fechaNacimiento"
+          >
+          </p-calendar>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right"></label>
+        <div class="col-6">
+          <button class="btn btn-outline-success puntero"
+                  type="submit"
+
+          >
+            <!--[disabled]="!forma.valid"-->
+            Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+<p-growl [value]="msgs"></p-growl>

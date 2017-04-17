@@ -1,0 +1,7 @@
+{
+  "rules": {
+    ".read": true, //"data.child('timestamp').val() > (now - 100)",
+    ".write": true //"auth != null"
+      //".validate": "newData.val() < now"
+  }
+}

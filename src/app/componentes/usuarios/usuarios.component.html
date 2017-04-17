@@ -1,0 +1,73 @@
+<h1>Lista de Usuarios</h1>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-outline-primary puntero"
+            type="button"
+            name="button"
+            [routerLink]="['/usuario', 'nuevo']"
+    >
+      Nuevo Usuario <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>No. Identicifación</th>
+          <th>Genero</th>
+          <th>Empresa</th>
+          <th>Rol</th>
+          <th>Fecha de Nacimiento</th>
+          <th class="text-right w120">Opciones</th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let usuario of usuarios; let i = index">
+          <td>{{ i + 1 }}</td>
+          <!--<td>1</td>-->
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.cedula }}</td>
+          <td>{{ usuario.genero }}</td>
+          <td>{{ usuario.nombreEmpresa }}</td>
+          <td>{{ usuario.rolUsuario }}</td>
+          <td>{{ usuario.fechaNacimiento | date:'dd-MMMM-yyyy'}}</td>
+          <td class="text-right w120">
+            <button class="btn btn-outline-success puntero"
+                    [routerLink]="['/usuario', usuario.$key]"
+            ><i class="fa fa-pencil" aria-hidden="true"></i> Editar
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(usuarios).length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
+
+
+    </div>
+  </div>
+</div>
