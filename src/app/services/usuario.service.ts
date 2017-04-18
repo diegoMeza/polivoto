@@ -1,13 +1,16 @@
-import { Injectable } from "@angular/core";
-import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { Inject, Injectable } from "@angular/core";
+import { AngularFire, FirebaseApp, FirebaseListObservable } from "angularfire2";
 import { Usuario } from "../interfaces/usuario";
 
 @Injectable ()
 export class UsuarioService {
   
   usuarios : any[] = [];
+  private auth : any;
   
-  constructor ( private af : AngularFire ) {
+  constructor ( private af : AngularFire,
+                @Inject ( FirebaseApp ) fa : any ) {
+    this.auth = fa.auth ();
   }
   
   getUsuarios () : FirebaseListObservable<any> {
@@ -26,5 +29,15 @@ export class UsuarioService {
     return this.af.database.list ( "usuarios" ).update ( id, usuario );
   }
   
+  /**
+   * Restaurar contraseña del correo
+   * @param email
+   * @author Carlos Andres
+   * @version 17/04/2017
+   */
+  resetPassword ( email : string ) {
+    return this.auth.sendPasswordResetEmail ( email );
+    
+  }
   
 }

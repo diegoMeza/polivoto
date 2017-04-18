@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AngularFire, FirebaseApp } from "angularfire2";
+import { AngularFire } from "angularfire2";
 import { Message } from "primeng/primeng";
 import "rxjs/add/observable/fromPromise";
 import { Subscription } from "rxjs/Subscription";
@@ -29,15 +29,12 @@ export class UsuarioComponent implements OnInit {
   generos : any[] = [ "Masculino", "Femenino" ];
   roles : any[] = [ "Admin", "User" ];
   empresas = [];
-  private auth : any;
   
   constructor ( private _usuarioService : UsuarioService,
                 private router : Router,
                 private route : ActivatedRoute,
                 private _votacionServices : VotacionService,
-                private af : AngularFire,
-                @Inject ( FirebaseApp ) fa : any ) {
-    this.auth = fa.auth ();
+                private af : AngularFire ) {
   }
   
   ngOnInit () {
@@ -83,7 +80,7 @@ export class UsuarioComponent implements OnInit {
               this.usuario.password )
               .then ( ( data ) => {
                 console.log ( data );
-                this.resetPassword ( this.usuario.email );
+                this._usuarioService.resetPassword ( this.usuario.email );
               } )
               .catch ( ( error ) => {
                 console.log ( error );
@@ -152,19 +149,9 @@ export class UsuarioComponent implements OnInit {
     this.usuario.nombreEmpresa = empresa.nombre;
   }
   
-  /**
-   * Restaurar contraseña del correo
-   * @param email
-   * @author Carlos Andres
-   * @version 17/04/2017
-   */
-  resetPassword ( email : string ) {
-    this.auth.sendPasswordResetEmail ( email )
-      .then ( resp => console.log ( "Cambio de Password" ) )
-      .catch ( error => console.log ( "ha fallado el cambio", error ) );
-  }
   
   onSelectMethod ( event ) {
+    // console.log(event);
     let d = new Date ( Date.parse ( event ) );
     this.usuario.fechaNacimiento = `${d.getDate ()}/${d.getMonth () + 1}/${d.getFullYear ()}`;
   }

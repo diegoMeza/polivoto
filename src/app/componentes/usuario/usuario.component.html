@@ -12,7 +12,7 @@
 
 <!--{{usuario | json}}-->
 
-<div class="row animated fadeIn fast fomulario">
+<div class="row animated fadeIn fast fomulario margen-abajo">
   <div class="col-md-12">
 
     <h4>
@@ -157,13 +157,12 @@
 
 
       <div class="form-group row">
-        <label class="col-4 col-form-label text-right">Fecha de Creación</label>
+        <label class="col-4 col-form-label text-right">Fecha de Nacimiento</label>
         <div class="col-6">
           <p-calendar [(ngModel)]="usuario.fechaNacimiento"
                       [showIcon]="true"
                       required
                       (onSelect)="onSelectMethod($event)"
-                      [dataType]="date"
                       #fechaNacimiento="ngModel"
                       name="fechaNacimiento"
           >
@@ -177,16 +176,15 @@
         <div class="col-6">
           <button class="btn btn-outline-success puntero"
                   type="submit"
-
+                  [disabled]="!forma.valid"
           >
-            <!--[disabled]="!forma.valid"-->
+
             Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
       </div>
-
     </form>
-
   </div>
+  <br><br><br><br><br>
 </div>
 <p-growl [value]="msgs"></p-growl>
