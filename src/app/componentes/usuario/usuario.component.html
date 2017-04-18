@@ -9,7 +9,9 @@
 >Nuevo Usuario <i class="fa fa-plus" aria-hidden="true"></i>
 </button>
 <hr>
-{{usuario | json}}
+
+<!--{{usuario | json}}-->
+
 <div class="row animated fadeIn fast fomulario">
   <div class="col-md-12">
 
@@ -160,6 +162,8 @@
           <p-calendar [(ngModel)]="usuario.fechaNacimiento"
                       [showIcon]="true"
                       required
+                      (onSelect)="onSelectMethod($event)"
+                      [dataType]="date"
                       #fechaNacimiento="ngModel"
                       name="fechaNacimiento"
           >

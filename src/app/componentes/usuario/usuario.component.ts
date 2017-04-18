@@ -1,9 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { AngularFire, FirebaseApp } from "angularfire2";
 import { Message } from "primeng/primeng";
+import "rxjs/add/observable/fromPromise";
 import { Subscription } from "rxjs/Subscription";
-import * as moment from "../../../../functions/node_modules/moment/moment";
+// import * as moment from "../../../../functions/node_modules/moment/moment";
 import { Empresa } from "../../interfaces/Empresa";
 import { UsuarioService } from "../../services/usuario.service";
 import { VotacionService } from "../../services/votacion.service";
@@ -27,11 +29,15 @@ export class UsuarioComponent implements OnInit {
   generos : any[] = [ "Masculino", "Femenino" ];
   roles : any[] = [ "Admin", "User" ];
   empresas = [];
+  private auth : any;
   
   constructor ( private _usuarioService : UsuarioService,
                 private router : Router,
                 private route : ActivatedRoute,
-                private _votacionServices : VotacionService ) {
+                private _votacionServices : VotacionService,
+                private af : AngularFire,
+                @Inject ( FirebaseApp ) fa : any ) {
+    this.auth = fa.auth ();
   }
   
   ngOnInit () {
@@ -63,22 +69,35 @@ export class UsuarioComponent implements OnInit {
   guardar ( forma : NgForm ) {
     console.log ( "envio: ", forma );
     //
-    this.usuario.fechaNacimiento = (moment ( this.usuario.fechaCreacion ).format ( "YYYY/MM/DD" ));
+    // this.usuario.fechaNacimiento = (moment ( this.usuario.fechaCreacion ).valueOf ());
     if ( this.id === "nuevo" ) {
       // Insertando
-      this._usuarioService.nuevoUsuario ( this.usuario )
-        .then ( () => {
-          console.log ( "Hecho...!" );
-          this.mensajeGuardado ();
-        } )
-        .catch ( ( error ) => {
-          console.error ( error );
-          this.mensajeError ();
-        } );
+      if ( this.usuario ) {
+        this._usuarioService.nuevoUsuario ( this.usuario )
+          .then ( () => {
+            console.log ( "Hecho...!" );
+            this.mensajeGuardado ();
+            this.usuario.password = "123456";
+            this._votacionServices.crearUsuarios (
+              this.usuario.email,
+              this.usuario.password )
+              .then ( ( data ) => {
+                console.log ( data );
+                this.resetPassword ( this.usuario.email );
+              } )
+              .catch ( ( error ) => {
+                console.log ( error );
+              } );
+          } )
+          .catch ( ( error ) => {
+            console.error ( error );
+            this.mensajeError ();
+          } );
+      }
     } else {
       // Actualizando
       this._usuarioService.actualizarUsuario ( this.usuario, this.id )
-        .then ( data => {
+        .then ( () => {
             this.mensajeGuardado ();
           },
           error => {
@@ -88,6 +107,12 @@ export class UsuarioComponent implements OnInit {
     }
   }
   
+  /**
+   * Metodo que carga todos los Usuarios
+   * @param forma
+   * @author Carlos Andres
+   * @version 17/04/2017
+   */
   agregarNuevo ( forma : NgForm ) {
     this.router.navigate ( [ "/usuario", "nuevo" ] );
     forma.reset ();
@@ -126,5 +151,23 @@ export class UsuarioComponent implements OnInit {
     console.log ( empresa );
     this.usuario.nombreEmpresa = empresa.nombre;
   }
+  
+  /**
+   * Restaurar contraseña del correo
+   * @param email
+   * @author Carlos Andres
+   * @version 17/04/2017
+   */
+  resetPassword ( email : string ) {
+    this.auth.sendPasswordResetEmail ( email )
+      .then ( resp => console.log ( "Cambio de Password" ) )
+      .catch ( error => console.log ( "ha fallado el cambio", error ) );
+  }
+  
+  onSelectMethod ( event ) {
+    let d = new Date ( Date.parse ( event ) );
+    this.usuario.fechaNacimiento = `${d.getDate ()}/${d.getMonth () + 1}/${d.getFullYear ()}`;
+  }
+  
   
 }

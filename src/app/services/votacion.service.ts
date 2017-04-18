@@ -12,13 +12,7 @@ export class VotacionService {
   }
   
   crearUsuarios ( email : string, pass : string ) {
-    this.af.auth.createUser ( { email: email, password: pass } )
-      .then ( ( data ) => {
-        console.log ( data );
-      } )
-      .catch ( ( error ) => {
-        console.log ( error );
-      } );
+    return this.af.auth.createUser ( { email: email, password: pass } );
   }
   
   getEmpresas () : FirebaseListObservable<any> {
