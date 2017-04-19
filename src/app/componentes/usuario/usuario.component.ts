@@ -5,7 +5,7 @@ import { AngularFire } from "angularfire2";
 import { Message } from "primeng/primeng";
 import "rxjs/add/observable/fromPromise";
 import { Subscription } from "rxjs/Subscription";
-// import * as moment from "../../../../functions/node_modules/moment/moment";
+import * as moment from "../../../../functions/node_modules/moment/moment";
 import { Empresa } from "../../interfaces/Empresa";
 import { UsuarioService } from "../../services/usuario.service";
 import { VotacionService } from "../../services/votacion.service";
@@ -18,8 +18,10 @@ import { VotacionService } from "../../services/votacion.service";
 } )
 export class UsuarioComponent implements OnInit {
   
+  startdate = moment ().subtract ( 20, "years" ).format ( "YYYY/MM/DD" );
   usuario : any = {
-    rolUsuario: "User"
+    rolUsuario     : "User",
+    fechaNacimiento: new Date ( this.startdate )
   };
   nuevo : boolean = false;
   id : string;
@@ -65,8 +67,8 @@ export class UsuarioComponent implements OnInit {
    */
   guardar ( forma : NgForm ) {
     console.log ( "envio: ", forma );
-    //
-    // this.usuario.fechaNacimiento = (moment ( this.usuario.fechaCreacion ).valueOf ());
+    this.usuario.fechaNacimiento = this.convetirFecha ( this.usuario.fechaNacimiento );
+    console.log ( this.usuario );
     if ( this.id === "nuevo" ) {
       // Insertando
       if ( this.usuario ) {
@@ -149,11 +151,16 @@ export class UsuarioComponent implements OnInit {
     this.usuario.nombreEmpresa = empresa.nombre;
   }
   
-  
-  onSelectMethod ( event ) {
-    // console.log(event);
-    let d = new Date ( Date.parse ( event ) );
-    this.usuario.fechaNacimiento = `${d.getDate ()}/${d.getMonth () + 1}/${d.getFullYear ()}`;
+  /**
+   * Convierte un fecha en timestamp
+   * @param fecha
+   * @returns {number}
+   */
+  convetirFecha ( fecha : any ) : number {
+    
+    let tiempo = new Date ( fecha );
+    let timestamp = tiempo.getTime ();
+    return timestamp;
   }
   
   

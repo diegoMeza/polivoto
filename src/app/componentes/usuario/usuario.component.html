@@ -10,7 +10,7 @@
 </button>
 <hr>
 
-<!--{{usuario | json}}-->
+{{usuario | json}}
 
 <div class="row animated fadeIn fast fomulario margen-abajo">
   <div class="col-md-12">
@@ -162,11 +162,13 @@
           <p-calendar [(ngModel)]="usuario.fechaNacimiento"
                       [showIcon]="true"
                       required
-                      (onSelect)="onSelectMethod($event)"
+
                       #fechaNacimiento="ngModel"
                       name="fechaNacimiento"
+                      dateFormat="dd/mm/yy"
           >
           </p-calendar>
+          <!--(onSelect)="onSelectMethod($event)"-->
 
         </div>
       </div>
