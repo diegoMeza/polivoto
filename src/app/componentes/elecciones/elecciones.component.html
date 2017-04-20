@@ -1,0 +1,88 @@
+<h1>Elecciones</h1>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-outline-primary puntero"
+            type="button"
+            name="button"
+            [routerLink]="['/eleccion', 'nuevo']"
+    >
+      Nueva Elección <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <p-dataTable [value]="elecciones" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+        <p-column field="nombre" header="Nombre Eleccion"></p-column>
+        <p-column field="noCandidatos" header="No. Candidatos"></p-column>
+        <p-column field="feInicio" header="Fecha Inscripción"></p-column>
+        <p-column field="feCierre" header="Fecha Votación"></p-column>
+        <p-column header="Inscripción">
+          <ng-template let-datos="rowData" pTemplate="body">
+            <div class="text-center">
+              <button class="btn btn-outline-success puntero"
+                      (click)="selectEleccion(datos)"
+              >Inscribirse <i class="fa fa-check" aria-hidden="true"></i></button>
+            </div>
+          </ng-template>
+        </p-column>
+      </p-dataTable>
+
+      <!--<table class="table">-->
+      <!--<thead class="thead-inverse">-->
+      <!--<tr>-->
+      <!--<th>#</th>-->
+      <!--<th>Nombre</th>-->
+      <!--<th>Nit</th>-->
+      <!--<th>Fecha Creación</th>-->
+      <!--<th>Estado</th>-->
+      <!--<th class="text-right w120">Opciones</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--&lt;!&ndash;<tr *ngFor="let k of heroes| keys; let i = index">&ndash;&gt;-->
+      <!--<tr *ngFor="let empresa of empresas; let i = index">-->
+      <!--<td>{{i+1}}</td>-->
+      <!--&lt;!&ndash;<td>1</td>&ndash;&gt;-->
+      <!--<td>{{empresa.nombre}}</td>-->
+      <!--<td>{{empresa.nit}}</td>-->
+      <!--<td>{{empresa.fechaCreacion | date:'dd-MMMM-yyyy'}}</td>-->
+      <!--<td>-->
+      <!--<md-checkbox [(ngModel)]="empresa.estado"-->
+      <!--class="example-margin"-->
+      <!--disabled="true">-->
+      <!--{{empresa.estado?'Activa':'Inactiva'}}-->
+      <!--</md-checkbox>-->
+      <!--</td>-->
+      <!--<td class="text-right w120">-->
+      <!--<button class="btn btn-outline-success puntero"-->
+      <!--[routerLink]="['/empresa', empresa.$key]"-->
+      <!--&gt;<i class="fa fa-pencil" aria-hidden="true"></i> Editar-->
+      <!--</button>-->
+      <!--</td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+      <!--</table>-->
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(elecciones).length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
+
+
+    </div>
+  </div>
+</div>

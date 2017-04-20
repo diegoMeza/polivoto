@@ -1,0 +1,116 @@
+<h3>Elección</h3>
+<button class="btn btn-outline-danger puntero"
+        [routerLink]="['/elecciones']"
+>
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+</button>
+<button class="btn btn-outline-success puntero"
+        (click)="agregarNuevo(forma)"
+>Nueva Elección <i class="fa fa-plus" aria-hidden="true"></i>
+</button>
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+
+    <form #forma="ngForm" novalidate="">
+
+      <div class="form-group row">
+        <!--[ngClass]="{ 'has-danger':(nombre.errors?.required  || nombre.errors?.minlength) && nombre.touched }">-->
+        <label class="col-4 col-form-label text-right">Nombre de la Elección</label>
+        <div class="col-6">
+          <input type="text"
+                 [(ngModel)]="eleccion.nombre"
+                 name="nombre"
+                 class="form-control"
+                 required
+                 minlength="5"
+                 placeholder="Nombre del la Elección"
+                 #nombre="ngModel"
+          >
+          <div *ngIf="(nombre.errors?.required )&& nombre.touched"
+               class="form-control-feedback">
+            El campo es requerido
+          </div>
+          <div *ngIf="nombre.errors?.minlength"
+               class="form-control-feedback">
+            Superior a {{nombre.errors.minlength.requiredLength}} caracteres
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row"
+           [ngClass]="{ 'has-danger':(noCandidato.errors?.required) && noCandidato.touched }">
+        <label class="col-4 col-form-label text-right">Número de Candidatos</label>
+        <div class="col-6">
+          <input type="number"
+                 [(ngModel)]="eleccion.noCandidatos"
+                 name="noCandidato"
+                 class="form-control"
+                 required
+                 placeholder="Número de Candidatos"
+                 #noCandidato="ngModel"
+          >
+          <div *ngIf="(noCandidato.errors?.required) && noCandidato.touched"
+               class="form-control-feedback">
+            El campo es requerido
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Fecha de Inicio</label>
+        <div class="col-6">
+
+          <p-calendar
+            [(ngModel)]="eleccion.feInicio"
+            [showIcon]="true"
+            showTime="true"
+            required
+            #fechaInicio="ngModel"
+            name="fechaInicio"
+            dateFormat="dd/mm/yy"
+          >
+
+          </p-calendar>
+
+        </div>
+      </div>
+
+      <!--dateFormat="dd/mm/yy"-->
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Fecha de Cierre</label>
+        <div class="col-6">
+          <p-calendar [(ngModel)]="eleccion.feCierre"
+                      [showIcon]="true"
+                      showTime="true"
+                      required
+                      #fechaCierre="ngModel"
+                      name="fechaCierre"
+                      dateFormat="dd/mm/yy"
+          >
+          </p-calendar>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right"></label>
+        <div class="col-6">
+          <button class="btn btn-outline-success puntero"
+                  (click)="guardar(forma)"
+
+          >
+            <!--[disabled]="!forma.valid"-->
+            Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<p-growl [value]="msgs"></p-growl>

@@ -1,4 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
+import { EleccionComponent } from "./componentes/eleccion/eleccion.component";
+import { EleccionesComponent } from "./componentes/elecciones/elecciones.component";
 import { EmpresaComponent } from "./componentes/empresa/empresa.component";
 import { EmpresasComponent } from "./componentes/empresas/empresas.component";
 import { HomeComponent } from "./componentes/home/home.component";
@@ -15,6 +17,8 @@ const ROUTES : Routes = [
   { path: "voto/:id", component: VotoComponent },
   { path: "usuarios", component: UsuariosComponent },
   { path: "usuario/:id", component: UsuarioComponent },
+  { path: "elecciones", component: EleccionesComponent },
+  { path: "eleccion/:id", component: EleccionComponent },
   // { path: "buscar", component: SearchComponent },
   // { path: "artista/:id", component: ArtistaComponent },
   { path: "**", pathMatch: "full", redirectTo: "home" }

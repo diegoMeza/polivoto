@@ -14,6 +14,8 @@ import { firebaseConfig } from "../environments/firebase.config";
 import { AppComponent } from "./app.component";
 // Configuracion Rutas
 import { APP_ROUTING } from "./app.routes";
+import { EleccionComponent } from "./componentes/eleccion/eleccion.component";
+import { EleccionesComponent } from "./componentes/elecciones/elecciones.component";
 import { EmpresaComponent } from "./componentes/empresa/empresa.component";
 import { EmpresasComponent } from "./componentes/empresas/empresas.component";
 
@@ -25,6 +27,7 @@ import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { AuthService } from "./services/auth.service";
+import { EleccionService } from "./services/eleccion.service";
 import { UsuarioService } from "./services/usuario.service";
 import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
@@ -45,6 +48,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     VotosComponent,
     UsuariosComponent,
     UsuarioComponent,
+    EleccionesComponent,
+    EleccionComponent,
   ],
   imports     : [
     BrowserModule,
@@ -70,7 +75,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     VotacionService,
     VotoService,
     AuthService,
-    UsuarioService
+    UsuarioService,
+    EleccionService
   ],
   bootstrap   : [ AppComponent ]
 } )
