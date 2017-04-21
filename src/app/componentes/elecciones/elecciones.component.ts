@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import * as moment from "../../../../functions/node_modules/moment/moment";
 import { Eleccion } from "../../interfaces/eleccion";
+import { AuthService } from "../../services/auth.service";
 import { EleccionService } from "../../services/eleccion.service";
 
 @Component ( {
@@ -15,7 +16,8 @@ export class EleccionesComponent implements OnInit {
   loading : boolean = true;
   
   constructor ( private _eleccionServices : EleccionService,
-                private router : Router ) {
+                private router : Router,
+                private _authServices : AuthService ) {
   }
   
   ngOnInit () {
@@ -24,7 +26,7 @@ export class EleccionesComponent implements OnInit {
   }
   
   getElecciones () {
-    this._eleccionServices.getElecciones ()
+    this._eleccionServices.getElecciones ( this._authServices.user )
       .subscribe ( ( eleccion ) => {
         this.elecciones = eleccion.map ( ( data ) => {
           data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
@@ -36,10 +38,16 @@ export class EleccionesComponent implements OnInit {
       } );
   }
   
-  selectEleccion ( datos : any ) {
+  realizarIncripcion ( datos : any ) {
     // console.log ( datos.$key );
+    this.router.navigate ( [ "/inscripcion", datos.$key ] );
+  }
+  
+  
+  editarInscripcion ( datos : any ) {
     this.router.navigate ( [ "/eleccion", datos.$key ] );
   }
+  
   
   /**
    * Convierte un fecha en timestamp

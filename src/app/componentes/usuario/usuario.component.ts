@@ -70,11 +70,13 @@ export class UsuarioComponent implements OnInit {
     this.usuario.fechaNacimiento = this.convetirFecha ( this.usuario.fechaNacimiento );
     console.log ( this.usuario );
     if ( this.id === "nuevo" ) {
+      console.log ( this.usuario );
       // Insertando
       if ( this.usuario ) {
         this._usuarioService.nuevoUsuario ( this.usuario )
           .then ( () => {
             console.log ( "Hecho...!" );
+            this.usuario.fechaNacimiento = this.convetirFechaISO ( this.usuario.fechaNacimiento );
             this.mensajeGuardado ();
             this.usuario.password = "123456";
             this._votacionServices.crearUsuarios (
@@ -163,5 +165,15 @@ export class UsuarioComponent implements OnInit {
     return timestamp;
   }
   
+  /**
+   * Convierte un fecha en timestamp
+   * @param fecha
+   * @returns {number}
+   */
+  convetirFechaISO ( fecha : any ) : Date {
+    // console.log ( fecha );
+    return new Date ( fecha );
+    
+  }
   
 }

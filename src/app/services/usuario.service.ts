@@ -6,7 +6,7 @@ import { Usuario } from "../interfaces/usuario";
 export class UsuarioService {
   
   usuarios : any[] = [];
-  private auth : any;
+  auth : any;
   
   constructor ( private af : AngularFire,
                 @Inject ( FirebaseApp ) fa : any ) {

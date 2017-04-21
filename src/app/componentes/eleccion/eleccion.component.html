@@ -60,6 +60,26 @@
       </div>
 
       <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Nombre de la Empresa</label>
+        <div class="col-6">
+
+          <md-select placeholder="Lista de Empresas"
+                     [(ngModel)]="eleccion.idEmpresa"
+                     name="empresa"
+
+          >
+            <md-option *ngFor="let empresa of empresas"
+                       [value]="empresa.$key"
+                       (click)="guardarEmpresa(empresa)"
+            >
+              {{empresa.nombre}}
+            </md-option>
+          </md-select>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-4 col-form-label text-right">Fecha de Inicio</label>
         <div class="col-6">
 

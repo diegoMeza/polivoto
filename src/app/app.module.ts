@@ -33,6 +33,7 @@ import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { InscripcionComponent } from './componentes/inscripcion/inscripcion.component';
 
 @NgModule ( {
   declarations: [
@@ -50,6 +51,7 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     UsuarioComponent,
     EleccionesComponent,
     EleccionComponent,
+    InscripcionComponent,
   ],
   imports     : [
     BrowserModule,

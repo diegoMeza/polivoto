@@ -4,6 +4,7 @@ import { EleccionesComponent } from "./componentes/elecciones/elecciones.compone
 import { EmpresaComponent } from "./componentes/empresa/empresa.component";
 import { EmpresasComponent } from "./componentes/empresas/empresas.component";
 import { HomeComponent } from "./componentes/home/home.component";
+import { InscripcionComponent } from "./componentes/inscripcion/inscripcion.component";
 import { UsuarioComponent } from "./componentes/usuario/usuario.component";
 import { UsuariosComponent } from "./componentes/usuarios/usuarios.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
@@ -19,6 +20,7 @@ const ROUTES : Routes = [
   { path: "usuario/:id", component: UsuarioComponent },
   { path: "elecciones", component: EleccionesComponent },
   { path: "eleccion/:id", component: EleccionComponent },
+  { path: "inscripcion/:id", component: InscripcionComponent },
   // { path: "buscar", component: SearchComponent },
   // { path: "artista/:id", component: ArtistaComponent },
   { path: "**", pathMatch: "full", redirectTo: "home" }

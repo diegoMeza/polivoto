@@ -29,8 +29,26 @@ export class AuthService {
           uid  : data.uid,
           email: data.auth.email
         };
-        console.log ( this.user );
-        localStorage.setItem ( "user", JSON.stringify ( this.user ) );
+        
+        this.af.database.list ( "usuarios", {
+          query: {
+            orderByChild: "email",
+            equalTo     : this.user.email
+          }
+        } ).subscribe ( ( usuario ) => {
+          console.log ( usuario[ 0 ] );
+          this.user.nombre = usuario[ 0 ].nombre;
+          this.user.cedula = usuario[ 0 ].cedula;
+          this.user.fechaNacimiento = usuario[ 0 ].fechaNacimiento;
+          this.user.genero = usuario[ 0 ].genero;
+          this.user.idEmpresa = usuario[ 0 ].idEmpresa;
+          this.user.nombreEmpresa = usuario[ 0 ].nombreEmpresa;
+          this.user.rolUsuario = usuario[ 0 ].rolUsuario;
+          console.log ( this.user );
+          localStorage.setItem ( "user", JSON.stringify ( this.user ) );
+        } );
+        
+        
       } else {
         this.user = null;
       }

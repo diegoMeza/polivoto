@@ -1,0 +1,135 @@
+<h3>Inscripción</h3>
+<button class="btn btn-outline-danger puntero"
+        [routerLink]="['/elecciones']"
+>
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+</button>
+<!--<button class="btn btn-outline-success puntero"-->
+<!--(click)="agregarNuevo(forma)"-->
+<!--&gt;Nueva Elección <i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--</button>-->
+<hr>
+{{inscripcion | json}}
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+
+    <form #forma="ngForm" novalidate="">
+
+      <div class="form-group row">
+        <!--[ngClass]="{ 'has-danger':(nombre.errors?.required  || nombre.errors?.minlength) && nombre.touched }">-->
+        <label class="col-4 col-form-label text-right">Tipo de Inscripción</label>
+        <div class="col-6">
+
+          <md-radio-group class="example-radio-group"
+                          [(ngModel)]="inscripcion.tipo"
+                          #tipo="ngModel"
+                          name="tipo"
+                          required
+                          [disabled]="loading"
+          >
+            <md-radio-button class="example-radio-button margen-derecho-15"
+                             *ngFor="let inscripcion of tipoInscripcion"
+                             [value]="inscripcion.valor">
+              {{inscripcion.nombre}}
+            </md-radio-button>
+          </md-radio-group>
+
+        </div>
+      </div>
+
+      <!--<div class="form-group row"-->
+      <!--[ngClass]="{ 'has-danger':(noCandidato.errors?.required) && noCandidato.touched }">-->
+      <!--<label class="col-4 col-form-label text-right">Número de Candidatos</label>-->
+      <!--<div class="col-6">-->
+      <!--<input type="number"-->
+      <!--[(ngModel)]="eleccion.noCandidatos"-->
+      <!--name="noCandidato"-->
+      <!--class="form-control"-->
+      <!--required-->
+      <!--placeholder="Número de Candidatos"-->
+      <!--#noCandidato="ngModel"-->
+      <!--&gt;-->
+      <!--<div *ngIf="(noCandidato.errors?.required) && noCandidato.touched"-->
+      <!--class="form-control-feedback">-->
+      <!--El campo es requerido-->
+      <!--</div>-->
+
+      <!--</div>-->
+      <!--</div>-->
+
+      <!--<br>-->
+      <!--<div class="form-group row">-->
+      <!--<label class="col-4 col-form-label text-right">Nombre de la Empresa</label>-->
+      <!--<div class="col-6">-->
+
+      <!--<md-select placeholder="Lista de Empresas"-->
+      <!--[(ngModel)]="eleccion.idEmpresa"-->
+      <!--name="empresa"-->
+
+      <!--&gt;-->
+      <!--<md-option *ngFor="let empresa of empresas"-->
+      <!--[value]="empresa.$key"-->
+      <!--(click)="guardarEmpresa(empresa)"-->
+      <!--&gt;-->
+      <!--{{empresa.nombre}}-->
+      <!--</md-option>-->
+      <!--</md-select>-->
+
+      <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="form-group row">-->
+      <!--<label class="col-4 col-form-label text-right">Fecha de Inicio</label>-->
+      <!--<div class="col-6">-->
+
+      <!--<p-calendar-->
+      <!--[(ngModel)]="eleccion.feInicio"-->
+      <!--[showIcon]="true"-->
+      <!--showTime="true"-->
+      <!--required-->
+      <!--#fechaInicio="ngModel"-->
+      <!--name="fechaInicio"-->
+      <!--dateFormat="dd/mm/yy"-->
+      <!--&gt;-->
+
+      <!--</p-calendar>-->
+
+      <!--</div>-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash;dateFormat="dd/mm/yy"&ndash;&gt;-->
+
+      <!--<div class="form-group row">-->
+      <!--<label class="col-4 col-form-label text-right">Fecha de Cierre</label>-->
+      <!--<div class="col-6">-->
+      <!--<p-calendar [(ngModel)]="eleccion.feCierre"-->
+      <!--[showIcon]="true"-->
+      <!--showTime="true"-->
+      <!--required-->
+      <!--#fechaCierre="ngModel"-->
+      <!--name="fechaCierre"-->
+      <!--dateFormat="dd/mm/yy"-->
+      <!--&gt;-->
+      <!--</p-calendar>-->
+      <!--</div>-->
+
+      <!--</div>-->
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right"></label>
+        <div class="col-6">
+          <button class="btn btn-outline-success puntero"
+                  (click)="guardar(forma)"
+
+          >
+            <!--[disabled]="!forma.valid"-->
+            Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<p-growl [value]="msgs"></p-growl>

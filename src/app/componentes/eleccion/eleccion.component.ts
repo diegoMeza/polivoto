@@ -3,8 +3,10 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Message } from "primeng/primeng";
 import { Subscription } from "rxjs/Subscription";
+import { Empresa } from "../../interfaces/Empresa";
 // import * as moment from "../../../../functions/node_modules/moment/moment";
 import { EleccionService } from "../../services/eleccion.service";
+import { VotacionService } from "../../services/votacion.service";
 
 @Component ( {
   selector   : "app-eleccion",
@@ -20,14 +22,17 @@ export class EleccionComponent implements OnInit {
   id : string;
   private subscription : Subscription;
   msgs : Message[] = [];
+  empresas = [];
   
   constructor ( private _eleccionService : EleccionService,
                 private router : Router,
-                private route : ActivatedRoute ) {
+                private route : ActivatedRoute,
+                private _votacionServices : VotacionService ) {
   }
   
   ngOnInit () {
     
+    this.getEmpresas ();
     this.route.params
       .subscribe ( parametro => {
         this.id = parametro[ "id" ];
@@ -37,11 +42,12 @@ export class EleccionComponent implements OnInit {
             .subscribe ( item => {
               // console.log ( item );
               this.eleccion = item;
-              this.eleccion.feInicio = this.convetirFecha ( item.feInicio );
-              this.eleccion.feCierre = this.convetirFecha ( item.feCierre );
+              console.log ( item );
+              this.eleccion.feInicio = this.convetirFecha ( this.eleccion.feInicio );
+              this.eleccion.feCierre = this.convetirFecha ( this.eleccion.feCierre );
             } );
-          this.eleccion.feInicio = new Date ();
-          this.eleccion.feCierre = new Date ();
+          // this.eleccion.feInicio = new Date ();
+          // this.eleccion.feCierre = new Date ();
         }
       } );
     
@@ -61,6 +67,8 @@ export class EleccionComponent implements OnInit {
         valido : 0,
         anunulo: 0
       };
+      this.eleccion.candidatosInscritos = 0;
+      this.eleccion.sufragantesInscritos = 0;
       console.log ( "Asignando fecha: ", this.eleccion );
       this._eleccionService.nuevaEleccion ( this.eleccion )
         .then ( () => {
@@ -110,6 +118,30 @@ export class EleccionComponent implements OnInit {
     // console.log ( fecha );
     return new Date ( fecha );
     
+  }
+  
+  /**
+   * Metodo que recupera todas la empresas de la db
+   * @author Carlos Andres
+   * @version 16/04/2017
+   */
+  getEmpresas () {
+    this._votacionServices.getEmpresas ()
+      .subscribe ( ( empresas ) => {
+        this.empresas = empresas;
+        console.log ( this.empresas );
+      } );
+  }
+  
+  /**
+   * Metodo que guarda el nombre de la empresa en el usuario
+   * @param empresa
+   * @author Carlos Andres
+   * @version 16/04/2017
+   */
+  guardarEmpresa ( empresa : Empresa ) {
+    console.log ( empresa );
+    this.eleccion.nombreEmpresa = empresa.nombre;
   }
   
 }
