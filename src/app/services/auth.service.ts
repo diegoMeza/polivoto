@@ -37,6 +37,7 @@ export class AuthService {
           }
         } ).subscribe ( ( usuario ) => {
           console.log ( usuario[ 0 ] );
+          this.user.uid = usuario[ 0 ].$key;
           this.user.nombre = usuario[ 0 ].nombre;
           this.user.cedula = usuario[ 0 ].cedula;
           this.user.fechaNacimiento = usuario[ 0 ].fechaNacimiento;

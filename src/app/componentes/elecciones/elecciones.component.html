@@ -7,6 +7,7 @@
             type="button"
             name="button"
             [routerLink]="['/eleccion', 'nuevo']"
+            *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"
     >
       Nueva Elección <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
@@ -22,7 +23,9 @@
         <p-column field="noCandidatos" header="No. Candidatos"></p-column>
         <p-column field="feInicio" header="Fecha Inscripción"></p-column>
         <p-column field="feCierre" header="Fecha Votación"></p-column>
-        <p-column header="Inscripción">
+        <p-column header="Inscripción"
+                  *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"
+        >
           <ng-template let-datos="rowData" pTemplate="body">
             <div class="text-center">
               <button class="btn btn-outline-warning puntero"

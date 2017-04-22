@@ -45,6 +45,7 @@ export class EleccionComponent implements OnInit {
               console.log ( item );
               this.eleccion.feInicio = this.convetirFecha ( this.eleccion.feInicio );
               this.eleccion.feCierre = this.convetirFecha ( this.eleccion.feCierre );
+              this.eleccion.feCierreInscripcion = this.convetirFecha ( this.eleccion.feCierreInscripcion );
             } );
           // this.eleccion.feInicio = new Date ();
           // this.eleccion.feCierre = new Date ();
@@ -57,6 +58,7 @@ export class EleccionComponent implements OnInit {
     console.log ( "envio: ", forma );
     this.eleccion.feInicio = this.eleccion.feInicio.getTime ();
     this.eleccion.feCierre = this.eleccion.feCierre.getTime ();
+    this.eleccion.feCierreInscripcion = this.eleccion.feCierreInscripcion.getTime ();
     
     
     if ( this.id === "nuevo" ) {
@@ -72,7 +74,6 @@ export class EleccionComponent implements OnInit {
       console.log ( "Asignando fecha: ", this.eleccion );
       this._eleccionService.nuevaEleccion ( this.eleccion )
         .then ( () => {
-          console.log ( "Hecho...!" );
           this.mensajeGuardado ();
         } )
         .catch ( ( error ) => {
@@ -92,6 +93,7 @@ export class EleccionComponent implements OnInit {
     }
     this.eleccion.feInicio = this.convetirFecha ( this.eleccion.feInicio );
     this.eleccion.feCierre = this.convetirFecha ( this.eleccion.feCierre );
+    this.eleccion.feCierreInscripcion = this.convetirFecha ( this.eleccion.feCierreInscripcion );
   }
   
   agregarNuevo ( forma : NgForm ) {
