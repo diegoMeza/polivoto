@@ -1,7 +1,15 @@
 {
   "rules": {
-    ".read": true, //"data.child('timestamp').val() > (now - 100)",
-    ".write": true //"auth != null"
-      //".validate": "newData.val() < now"
+    ".read": true,
+    //"data.child('timestamp').val() > (now - 100)",
+    ".write": true,
+    //"auth != null"
+    //".validate": "newData.val() < now"
+    "elecciones": {
+      ".indexOn": "idEmpresa"
+    },
+    "usuarios": {
+      ".indexOn": "email"
+    }
   }
 }

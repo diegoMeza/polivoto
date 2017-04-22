@@ -1,0 +1,54 @@
+<h1>Lista de Candidatos</h1>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Genero</th>
+          <th>No. Votación</th>
+          <th>Fecha Nacimiento</th>
+          <th class="text-right w120">Detalles</th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let cand of candidatos; let i = index">
+          <td>{{ i + 1 }}</td>
+          <!--<td>1</td>-->
+          <td>{{ cand.nombre }}</td>
+          <td>{{ cand.genero }}</td>
+          <td>{{ cand.idListaVotacion }}</td>
+          <td>{{ cand.feNacimiento | date:'dd-MMMM-yyyy'}}</td>
+          <td class="text-right w120">
+            <button class="btn btn-outline-info puntero"
+                    [routerLink]="['/candidato', id, cand.id]"
+            >Ver <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(candidatos).length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
+
+
+    </div>
+  </div>
+</div>

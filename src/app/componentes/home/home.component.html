@@ -1,4 +1,3 @@
-{{_authServices.user | json}}
 <md-tab-group>
 
   <md-tab *ngIf="!_authServices.user" label="Ingresar">
@@ -237,19 +236,7 @@
   </md-tab>
   <md-tab label="Tipos Elecciones" *ngIf="_authServices.user">
     <hr>
-    <p-dataTable [value]="cars" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-      <p-column field="noEleccion" header="Nombre Eleccion"></p-column>
-      <p-column field="noCand" header="No. Candidatos"></p-column>
-      <p-column field="feInicio" header="Fecha Inscripción"></p-column>
-      <p-column field="feFin" header="Fecha Votación"></p-column>
-      <p-column header="Inscripción">
-        <ng-template let-car="rowData" pTemplate="body">
-          <div class="text-center">
-            <button class="btn btn-outline-success puntero" (click)="selectCar(car)">Inscribirse <i class="fa fa-check" aria-hidden="true"></i></button>
-          </div>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
+    <app-elecciones></app-elecciones>
   </md-tab>
 </md-tab-group>
 

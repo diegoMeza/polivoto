@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from "@angular/core/testing";
 
-import { VotoService } from './voto.service';
+import { VotoService } from "./voto.service";
 
-describe('VotoService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [VotoService]
-    });
-  });
-
-  it('should ...', inject([VotoService], (service: VotoService) => {
-    expect(service).toBeTruthy();
-  }));
-});
+describe ( "VotoService", () => {
+  beforeEach ( () => {
+    TestBed.configureTestingModule ( {
+      providers: [ VotoService ]
+    } );
+  } );
+  
+  it ( "should ...", inject ( [ VotoService ], ( service : VotoService ) => {
+    expect ( service ).toBeTruthy ();
+  } ) );
+} );

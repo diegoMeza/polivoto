@@ -1,0 +1,26 @@
+<div class="container main-container animated fadeIn fast">
+  <div class="row">
+    <div class="col-md-3">
+      <img [src]="candidato.imgw | sinfoto" class="img-thumbnail img-circle">
+      <br>
+    </div>
+    <div class="col-md-9">
+      <h3>{{candidato.nombre}}
+        <br>
+        <small>Genero: {{candidato.genero}}</small>
+        <br>
+        <small>Fecha de Nacimiento: {{candidato.feNacimiento | date:'dd-MMMM-yyyy' }}</small>
+        <br>
+        <small>Numero de Elección: {{candidato.idListaVotacion}}</small>
+      </h3>
+      <hr>
+
+      <a class="btn btn-outline-danger"
+         [routerLink]="['/candidatos']"
+      >
+        Regresar
+      </a>
+    </div>
+  </div>
+</div>
+

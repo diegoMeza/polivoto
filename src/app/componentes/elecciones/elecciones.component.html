@@ -18,7 +18,7 @@
   <div class="col-md-12">
     <div class="table-responsive">
 
-      <p-dataTable [value]="elecciones" [rows]="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
+      <p-dataTable [value]="elecciones" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20]">
         <p-column field="nombre" header="Nombre Eleccion"></p-column>
         <p-column field="noCandidatos" header="No. Candidatos"></p-column>
         <p-column field="feInicio" header="Fecha Inscripción"></p-column>
@@ -30,7 +30,7 @@
             <div class="text-center">
               <button class="btn btn-outline-warning puntero"
                       (click)="realizarIncripcion(datos)"
-              >Inscribirse <i class="fa fa-check" aria-hidden="true"></i></button>
+              >Inscribirse <i class="fa fa-calendar-check-o" aria-hidden="true"></i></button>
             </div>
           </ng-template>
         </p-column>
@@ -40,6 +40,24 @@
               <button class="btn btn-outline-success puntero"
                       (click)="editarInscripcion(datos)"
               >Editar <i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </div>
+          </ng-template>
+        </p-column>
+        <p-column header="Votar">
+          <ng-template let-datos="rowData" pTemplate="body">
+            <div class="text-center">
+              <button class="btn btn-outline-primary puntero"
+                      (click)="realizarVotacion(datos)"
+              >Votar <i class="fa fa-check" aria-hidden="true"></i></button>
+            </div>
+          </ng-template>
+        </p-column>
+        <p-column header="Candidatos">
+          <ng-template let-datos="rowData" pTemplate="body">
+            <div class="text-center">
+              <button class="btn btn-outline-info puntero"
+                      (click)="verCandidatos(datos)"
+              >Ver <i class="fa fa-eye" aria-hidden="true"></i></button>
             </div>
           </ng-template>
         </p-column>

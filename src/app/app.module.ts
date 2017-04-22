@@ -14,26 +14,31 @@ import { firebaseConfig } from "../environments/firebase.config";
 import { AppComponent } from "./app.component";
 // Configuracion Rutas
 import { APP_ROUTING } from "./app.routes";
+import { CandidatoComponent } from "./componentes/candidato/candidato.component";
+import { CandidatosComponent } from "./componentes/candidatos/candidatos.component";
 import { EleccionComponent } from "./componentes/eleccion/eleccion.component";
 import { EleccionesComponent } from "./componentes/elecciones/elecciones.component";
 import { EmpresaComponent } from "./componentes/empresa/empresa.component";
 import { EmpresasComponent } from "./componentes/empresas/empresas.component";
 
 import { HomeComponent } from "./componentes/home/home.component";
+import { InscripcionComponent } from "./componentes/inscripcion/inscripcion.component";
 import { LoginComponent } from "./componentes/login/login.component";
 import { UsuarioComponent } from "./componentes/usuario/usuario.component";
 import { UsuariosComponent } from "./componentes/usuarios/usuarios.component";
+import { VotacionComponent } from "./componentes/votacion/votacion.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
-import { KeysPipe } from "./pipes/keys.pipe";
+import { SinfotoPipe } from "./pipes/sinfoto.pipe";
 import { AuthService } from "./services/auth.service";
+import { CandidatoService } from "./services/candidato.service";
 import { EleccionService } from "./services/eleccion.service";
 import { UsuarioService } from "./services/usuario.service";
 import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
-import { InscripcionComponent } from './componentes/inscripcion/inscripcion.component';
+
 
 @NgModule ( {
   declarations: [
@@ -43,7 +48,6 @@ import { InscripcionComponent } from './componentes/inscripcion/inscripcion.comp
     HomeComponent,
     EmpresaComponent,
     EmpresasComponent,
-    KeysPipe,
     FooterComponent,
     VotoComponent,
     VotosComponent,
@@ -52,6 +56,10 @@ import { InscripcionComponent } from './componentes/inscripcion/inscripcion.comp
     EleccionesComponent,
     EleccionComponent,
     InscripcionComponent,
+    VotacionComponent,
+    CandidatoComponent,
+    CandidatosComponent,
+    SinfotoPipe,
   ],
   imports     : [
     BrowserModule,
@@ -78,7 +86,8 @@ import { InscripcionComponent } from './componentes/inscripcion/inscripcion.comp
     VotoService,
     AuthService,
     UsuarioService,
-    EleccionService
+    EleccionService,
+    CandidatoService
   ],
   bootstrap   : [ AppComponent ]
 } )

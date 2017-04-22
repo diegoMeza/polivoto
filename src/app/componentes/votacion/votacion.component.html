@@ -1,0 +1,51 @@
+<h3>Votación</h3>
+<button class="btn btn-outline-danger puntero"
+        [routerLink]="['/elecciones']"
+>
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+</button>
+
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+
+    <form #forma="ngForm" novalidate="">
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right">Realizar Voto</label>
+        <div class="col-6">
+
+          <md-radio-group class="example-radio-group"
+                          [(ngModel)]="voto"
+                          #tipo="ngModel"
+                          name="tipo"
+                          required
+          >
+            <md-radio-button class="example-radio-button margen-derecho-15"
+                             *ngFor="let voto of tipoVotacion"
+                             [value]="voto.nombre">
+              {{voto.nombre}}
+            </md-radio-button>
+          </md-radio-group>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right"></label>
+        <div class="col-6">
+          <button class="btn btn-outline-success puntero"
+                  (click)="guardar(forma)"
+                  [disabled]="(!(this.fechaActual > this.eleccion.feCierre) || !forma.valid )"
+
+          >
+            <!--[disabled]="!forma.valid"-->
+            Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+<p-growl [value]="msgs"></p-growl>

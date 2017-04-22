@@ -17,7 +17,7 @@ export class EleccionesComponent implements OnInit {
   
   constructor ( private _eleccionServices : EleccionService,
                 private router : Router,
-                private _authServices : AuthService ) {
+                public _authServices : AuthService ) {
   }
   
   ngOnInit () {
@@ -48,6 +48,15 @@ export class EleccionesComponent implements OnInit {
     this.router.navigate ( [ "/eleccion", datos.$key ] );
   }
   
+  realizarVotacion ( datos : any ) {
+    // console.log ( datos.$key );
+    this.router.navigate ( [ "/votacion", datos.$key ] );
+  }
+  
+  verCandidatos ( datos : any ) {
+    // console.log ( datos.$key );
+    this.router.navigate ( [ "/candidatos", datos.$key ] );
+  }
   
   /**
    * Convierte un fecha en timestamp
