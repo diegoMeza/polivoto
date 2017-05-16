@@ -67,11 +67,11 @@ export class HomeComponent implements OnInit {
   }
   
   login () {
-    console.log ( this.forma.value.email );
-    console.log ( this.forma );
+    // console.log ( this.forma.value.email );
+    // console.log ( this.forma );
     let email = this.forma.value.email;
     let password = this.forma.value.password;
-    console.log ( email, password );
+    // console.log ( email, password );
     this._authServices.login ( email, password );
   }
   

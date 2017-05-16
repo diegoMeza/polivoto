@@ -18,6 +18,16 @@ export class EleccionService {
     } );
   }
   
+  // getUsuario ( user : Usuario ) : FirebaseListObservable<any> {
+  //   return this.af.database.list ( "usuarios", {
+  //     query: {
+  //       orderByChild: "email",
+  //       equalTo     : user.email
+  //     }
+  //   } );
+  // }
+  
+  
   getEleccion ( id : string ) : any {
     return this.af.database.object ( "/elecciones/" + id );
   }

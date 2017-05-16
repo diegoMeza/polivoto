@@ -1,9 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import * as moment from "../../../../functions/node_modules/moment/moment";
 import { Eleccion } from "../../interfaces/eleccion";
 import { AuthService } from "../../services/auth.service";
 import { EleccionService } from "../../services/eleccion.service";
+import { UsuarioService } from "../../services/usuario.service";
+
 
 @Component ( {
   selector   : "app-elecciones",
@@ -14,10 +16,12 @@ export class EleccionesComponent implements OnInit {
   
   elecciones : Eleccion[] = [];
   loading : boolean = true;
+  @Input () usuario : any;
   
   constructor ( private _eleccionServices : EleccionService,
                 private router : Router,
-                public _authServices : AuthService ) {
+                public _authServices : AuthService,
+                private _usuarioService : UsuarioService ) {
   }
   
   ngOnInit () {
@@ -26,16 +30,32 @@ export class EleccionesComponent implements OnInit {
   }
   
   getElecciones () {
-    console.log ( this._authServices.user.idEmpresa );
-    this._eleccionServices.getElecciones ( this._authServices.user )
+    // this._eleccionServices.getElecciones ( this._authServices.user )
+    //   .subscribe ( ( eleccion ) => {
+    //     this.elecciones = eleccion.map ( ( data ) => {
+    //       // data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
+    //       data.feCierre = moment ( data.feCierre ).format ( "DD/MM/YYYY" );
+    //       return data;
+    //     } );
+    //     // console.log ( this.elecciones );
+    //     this.loading = false;
+    //   } );
+    this._usuarioService.obtenerUsuarioporEmail ( this._authServices.user )
       .subscribe ( ( eleccion ) => {
-        this.elecciones = eleccion.map ( ( data ) => {
-          data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
-          data.feCierre = moment ( data.feCierre ).format ( "DD/MM/YYYY" );
-          return data;
+        this.elecciones = eleccion.map ( ( usuario ) => {
+          
+          this._eleccionServices.getElecciones ( usuario )
+            .subscribe ( ( eleccion ) => {
+              this.elecciones = eleccion.map ( ( data ) => {
+                // data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
+                data.feCierre = moment ( data.feCierre ).format ( "DD/MM/YYYY" );
+                return data;
+              } );
+              // console.log ( this.elecciones );
+              this.loading = false;
+            } );
+          
         } );
-        // console.log ( this.elecciones );
-        this.loading = false;
       } );
   }
   

@@ -40,4 +40,13 @@ export class UsuarioService {
     
   }
   
+  obtenerUsuarioporEmail ( user : Usuario ) : FirebaseListObservable<any> {
+    return this.af.database.list ( "usuarios", {
+      query: {
+        orderByChild: "email",
+        equalTo     : user.email
+      }
+    } );
+  }
+  
 }

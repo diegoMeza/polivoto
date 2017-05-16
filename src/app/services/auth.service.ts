@@ -1,11 +1,16 @@
 import { Injectable } from "@angular/core";
 import { AngularFire, AuthMethods, AuthProviders } from "angularfire2";
+import { Subject } from "rxjs/Subject";
 import { Usuario } from "../interfaces/usuario";
 
 @Injectable ()
 export class AuthService {
-  user : Usuario = {};
+  user : Usuario;
   ingresoUser : boolean = false;
+  usuario = new Subject<any> ();
+  
+  // usuario = this.observador.asObservable ();
+  
   
   constructor ( private af : AngularFire ) {
     // Validamos si en el localStorage tenemos datos del usuario
@@ -37,7 +42,7 @@ export class AuthService {
             equalTo     : this.user.email
           }
         } ).subscribe ( ( usuario ) => {
-          console.log ( usuario[ 0 ] );
+          // console.log ( usuario[ 0 ] );
           this.user.uid = usuario[ 0 ].$key;
           this.user.nombre = usuario[ 0 ].nombre;
           this.user.cedula = usuario[ 0 ].cedula;
@@ -46,6 +51,7 @@ export class AuthService {
           this.user.idEmpresa = usuario[ 0 ].idEmpresa;
           this.user.nombreEmpresa = usuario[ 0 ].nombreEmpresa;
           this.user.rolUsuario = usuario[ 0 ].rolUsuario;
+          this.usuario.next ( this.user );
           console.log ( this.user );
           localStorage.setItem ( "user", JSON.stringify ( this.user ) );
           if ( this.user.rolUsuario == "Admin" ) {
