@@ -44,8 +44,9 @@
       <!--</li>-->
 
       <li class="nav-item dropdown"
-          *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"
+          *ngIf="_authServices.ingresoUser"
       >
+        <!--*ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"-->
         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin
         </a>

@@ -26,6 +26,7 @@ export class EleccionesComponent implements OnInit {
   }
   
   getElecciones () {
+    console.log ( this._authServices.user.idEmpresa );
     this._eleccionServices.getElecciones ( this._authServices.user )
       .subscribe ( ( eleccion ) => {
         this.elecciones = eleccion.map ( ( data ) => {

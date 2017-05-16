@@ -1,7 +1,8 @@
 <div class="container main-container animated fadeIn fast">
   <div class="row">
     <div class="col-md-3">
-      <img [src]="candidato.imgw | sinfoto" class="img-thumbnail img-circle">
+      <img [src]="candidato.img" class="img-thumbnail img-circle">
+      <!--<img [src]="candidato.img | sinfoto" class="img-thumbnail img-circle">-->
       <br>
     </div>
     <div class="col-md-9">
@@ -16,7 +17,7 @@
       <hr>
 
       <a class="btn btn-outline-danger"
-         [routerLink]="['/candidatos']"
+         [routerLink]="['/candidatos', idPrincipal]"
       >
         Regresar
       </a>

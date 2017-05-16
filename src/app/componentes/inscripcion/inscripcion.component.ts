@@ -89,7 +89,7 @@ export class InscripcionComponent implements OnInit {
         let tempCand = {
           nombre         : this._authServices.user.nombre,
           id             : this._authServices.user.uid,
-          img            : "ruta",
+          img            : "https://firebasestorage.googleapis.com/v0/b/poli-voto.appspot.com/o/noimage.png?alt=media&token=3d756b53-845f-4dcb-bdd1-a6cb3ffd3be1",
           genero         : this._authServices.user.genero,
           idListaVotacion: this.eleccion.candidatosInscritos,
           feNacimiento   : this._authServices.user.fechaNacimiento,

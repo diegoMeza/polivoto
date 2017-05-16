@@ -5,6 +5,7 @@ import { Usuario } from "../interfaces/usuario";
 @Injectable ()
 export class AuthService {
   user : Usuario = {};
+  ingresoUser : boolean = false;
   
   constructor ( private af : AngularFire ) {
     // Validamos si en el localStorage tenemos datos del usuario
@@ -47,6 +48,10 @@ export class AuthService {
           this.user.rolUsuario = usuario[ 0 ].rolUsuario;
           console.log ( this.user );
           localStorage.setItem ( "user", JSON.stringify ( this.user ) );
+          if ( this.user.rolUsuario == "Admin" ) {
+            this.ingresoUser = true;
+          }
+          
         } );
         
         
@@ -60,6 +65,7 @@ export class AuthService {
     // Eliminamos la copia de los datos del usuario en el localStorage
     localStorage.removeItem ( "user" );
     this.user = null;
+    this.ingresoUser = false;
     this.af.auth.logout ();
   }
 }

@@ -23,9 +23,7 @@
         <p-column field="noCandidatos" header="No. Candidatos"></p-column>
         <p-column field="feInicio" header="Fecha Inscripción"></p-column>
         <p-column field="feCierre" header="Fecha Votación"></p-column>
-        <p-column header="Inscripción"
-                  *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"
-        >
+        <p-column header="Inscripción">
           <ng-template let-datos="rowData" pTemplate="body">
             <div class="text-center">
               <button class="btn btn-outline-warning puntero"
@@ -39,6 +37,7 @@
             <div class="text-center">
               <button class="btn btn-outline-success puntero"
                       (click)="editarInscripcion(datos)"
+                      *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false"
               >Editar <i class="fa fa-pencil" aria-hidden="true"></i></button>
             </div>
           </ng-template>

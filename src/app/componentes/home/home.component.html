@@ -42,9 +42,23 @@
             </div>
           </div>
         </div>
+        <div class="form-group row"
+             *ngIf="forma.valid"
+        >
+          <label class="col-4 col-form-label text-right">&nbsp;</label>
+          <div class="col-6">
+
+            <p-captcha [siteKey]="llave"
+                       (onResponse)="showResponse($event)">
+            </p-captcha>
+
+          </div>
+        </div>
 
 
-        <div class="form-group row">
+        <div class="form-group row"
+             *ngIf="respuestaCaptcha"
+        >
           <label class="col-4 col-form-label">&nbsp;</label>
           <div class="input-group col-md-6">
             <button type="submit"
@@ -56,9 +70,7 @@
           </div>
         </div>
       </form>
-
     </div>
-
   </md-tab>
 
   <md-tab *ngIf="!_authServices.user" label="Restablecer Contraseña">
@@ -106,134 +118,134 @@
   </md-tab>
 
 
-  <md-tab label="Candidatos" *ngIf="_authServices.user">
-    <hr>
+  <!--<md-tab label="Candidatos" *ngIf="_authServices.user">-->
+  <!--<hr>-->
 
-    <div class="card-columns">
+  <!--<div class="card-columns">-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block puntero"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block puntero"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
-      <div class="text-center">
-        <div class="card animated fadeIn fast" style="width: 17rem;">
-          <img class="card-img-top img-fluid"
-               src="assets/img/noimage.png" alt=""
-          >
-          <div class="card-block">
-            <h4 class="card-title">nombre</h4>
-            <p class="card-text">
-              <small class="text-muted">Coopast</small>
-            </p>
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-block"
-              (click)="verHeroe(i)"
-            >Ver mas...
-            </button>
-          </div>
-        </div>
-      </div>
+  <!--<div class="text-center">-->
+  <!--<div class="card animated fadeIn fast" style="width: 17rem;">-->
+  <!--<img class="card-img-top img-fluid"-->
+  <!--src="assets/img/noimage.png" alt=""-->
+  <!--&gt;-->
+  <!--<div class="card-block">-->
+  <!--<h4 class="card-title">nombre</h4>-->
+  <!--<p class="card-text">-->
+  <!--<small class="text-muted">Coopast</small>-->
+  <!--</p>-->
+  <!--<button-->
+  <!--type="button"-->
+  <!--class="btn btn-outline-primary btn-block"-->
+  <!--(click)="verHeroe(i)"-->
+  <!--&gt;Ver mas...-->
+  <!--</button>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
 
-    </div>
-  </md-tab>
+  <!--</div>-->
+  <!--</md-tab>-->
   <md-tab label="Tipos Elecciones" *ngIf="_authServices.user">
     <hr>
     <app-elecciones></app-elecciones>

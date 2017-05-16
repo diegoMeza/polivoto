@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { HttpModule, JsonpModule } from "@angular/http";
 import { MdCheckboxModule, MdRadioModule, MdSelectModule, MdTabsModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -8,7 +8,7 @@ import { MomentModule } from "angular2-moment";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
 import "hammerjs";
-import { ButtonModule, CalendarModule, CheckboxModule, DataTableModule, GrowlModule, SharedModule } from "primeng/primeng";
+import { ButtonModule, CalendarModule, CaptchaModule, CheckboxModule, DataTableModule, GrowlModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
@@ -29,10 +29,12 @@ import { UsuariosComponent } from "./componentes/usuarios/usuarios.component";
 import { VotacionComponent } from "./componentes/votacion/votacion.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
+import { KeysPipe } from "./pipes/keys.pipe";
 import { SinfotoPipe } from "./pipes/sinfoto.pipe";
 import { AuthService } from "./services/auth.service";
 import { CandidatoService } from "./services/candidato.service";
 import { EleccionService } from "./services/eleccion.service";
+import { ObtenerIpService } from "./services/obtener-ip.service";
 import { UsuarioService } from "./services/usuario.service";
 import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
@@ -60,6 +62,7 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     CandidatoComponent,
     CandidatosComponent,
     SinfotoPipe,
+    KeysPipe
   ],
   imports     : [
     BrowserModule,
@@ -79,7 +82,9 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     GrowlModule,
     CalendarModule,
     MdRadioModule,
-    MdSelectModule
+    MdSelectModule,
+    CaptchaModule,
+    JsonpModule
   ],
   providers   : [ { provide: LOCALE_ID, useValue: "es" },
     VotacionService,
@@ -87,7 +92,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     AuthService,
     UsuarioService,
     EleccionService,
-    CandidatoService
+    CandidatoService,
+    ObtenerIpService
   ],
   bootstrap   : [ AppComponent ]
 } )

@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AngularFire } from "angularfire2";
 import { Message } from "primeng/primeng";
-import { Subscription } from "rxjs/Subscription";
 import { AuthService } from "../../services/auth.service";
+import { ObtenerIpService } from "../../services/obtener-ip.service";
 import { UsuarioService } from "../../services/usuario.service";
 
 @Component ( {
@@ -20,16 +20,24 @@ export class HomeComponent implements OnInit {
   ];
   forma : FormGroup;
   formPass : FormGroup;
-  private subscription : Subscription;
   msgs : Message[] = [];
   msgTitulo : string;
   msgDescripcion : string;
+  mensaje : Message[] = [];
+  //Captcha
+  llave : string = "6LfvgyEUAAAAAN8Mab4-5EV00SK-yhOPYXFYUUx5";
+  respuestaCaptcha : boolean;
+  url : string = "https://www.google.com/recaptcha/api/siteverify";
+  miIp : any;
   
   
   constructor ( private fb : FormBuilder,
                 public _authServices : AuthService,
                 private af : AngularFire,
-                private _usuarioService : UsuarioService ) {
+                private _usuarioService : UsuarioService,
+                private _obternerIp : ObtenerIpService ) {
+    
+    this.mostarIp ();
     
     this.af.auth.subscribe ( ( data ) => {
       if ( data ) {
@@ -95,4 +103,35 @@ export class HomeComponent implements OnInit {
         console.log ( "ha fallado el cambio", error );
       } );
   }
+  
+  showResponse ( response ) {
+    let respuesta = response.response;
+    this.enviarCaptcha ( response.response, this.miIp );
+    // if ( respuesta.length > 0 ) {
+    //   this.respuestaCaptcha = false;
+    // }
+  }
+  
+  mostarIp () {
+    this._obternerIp.optenerIp ()
+      .subscribe ( ( data ) => {
+          this.miIp = data.ip;
+        }
+      );
+  }
+  
+  enviarCaptcha ( ip : string, response : any ) {
+    let status;
+    this._obternerIp.enviarCaptcha ( response, ip )
+      .subscribe ( ( data ) => console.log ( data ),
+        ( err ) => {
+          console.log ( err );
+          status = err.statusText;
+          console.log ( status );
+          if ( status === "Ok" ) {
+            this.respuestaCaptcha = true;
+          }
+        } );
+  }
+  
 }
