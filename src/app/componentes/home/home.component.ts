@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
   url : string = "https://www.google.com/recaptcha/api/siteverify";
   miIp : any;
   
+  //Votacion
+  texto : string = "Hola";
   
   constructor ( private fb : FormBuilder,
                 public _authServices : AuthService,

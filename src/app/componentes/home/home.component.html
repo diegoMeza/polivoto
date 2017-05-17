@@ -251,6 +251,7 @@
   <!--</md-tab>-->
   <md-tab label="Tipos Elecciones" *ngIf="_authServices.user">
     <hr>
+    <!--{{texto | validaVotacion:_authServices.user}}-->
     <app-elecciones></app-elecciones>
   </md-tab>
 </md-tab-group>

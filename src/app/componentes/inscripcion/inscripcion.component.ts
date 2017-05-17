@@ -15,14 +15,13 @@ export class InscripcionComponent implements OnInit {
   inscripcion : any = {};
   tipoInscripcion : any[] = [ { nombre: "Candidato", valor: 0 }, { nombre: "Sufragante", valor: 1 } ];
   id : string;
-  private subscription : Subscription;
   eleccion : any = {};
   loading : boolean = false;
   msgs : Message[] = [];
-  
   listaCandTemp : any[] = [];
   listaSufraTemp : any[] = [];
   flag : boolean = false;
+  private subscription : Subscription;
   
   constructor ( private _eleccionService : EleccionService,
                 private router : Router,
@@ -74,32 +73,33 @@ export class InscripcionComponent implements OnInit {
       if ( this.flag ) {
         this.eleccion.sufragantesInscritos = this.eleccion.sufragantesInscritos + 1 | 1;
         let tempSufr = {
-          nombre: this._authServices.user.nombre,
-          id    : this._authServices.user.uid,
-          isVoto: false
+          nombre  : this._authServices.user.nombre,
+          id      : this._authServices.user.uid,
+          isVoto  : false,
+          inscrito: true
         };
         this.listaSufraTemp.push ( tempSufr );
         this.eleccion.listaSufragantes = this.listaSufraTemp;
         tempSufr = null;
       }
-    } else {
-      this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
-      if ( this.flag ) {
-        this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1 | 1;
-        let tempCand = {
-          nombre         : this._authServices.user.nombre,
-          id             : this._authServices.user.uid,
-          img            : "https://firebasestorage.googleapis.com/v0/b/poli-voto.appspot.com/o/noimage.png?alt=media&token=3d756b53-845f-4dcb-bdd1-a6cb3ffd3be1",
-          genero         : this._authServices.user.genero,
-          idListaVotacion: this.eleccion.candidatosInscritos,
-          feNacimiento   : this._authServices.user.fechaNacimiento,
-          isVoto         : false
-        };
-        this.listaCandTemp.push ( tempCand );
-        this.eleccion.listaCandidatos = this.listaCandTemp;
-        tempCand = null;
-      }
-    }
+    } //else {
+    //   this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
+    //   if ( this.flag ) {
+    //     this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1 | 1;
+    //     let tempCand = {
+    //       nombre         : this._authServices.user.nombre,
+    //       id             : this._authServices.user.uid,
+    //       img            : "https://firebasestorage.googleapis.com/v0/b/poli-voto.appspot.com/o/noimage.png?alt=media&token=3d756b53-845f-4dcb-bdd1-a6cb3ffd3be1",
+    //       genero         : this._authServices.user.genero,
+    //       idListaVotacion: this.eleccion.candidatosInscritos,
+    //       feNacimiento   : this._authServices.user.fechaNacimiento,
+    //       isVoto         : false
+    //     };
+    //     this.listaCandTemp.push ( tempCand );
+    //     this.eleccion.listaCandidatos = this.listaCandTemp;
+    //     tempCand = null;
+    //   }
+    // }
     if ( this.flag ) {
       this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
         .then ( data => {

@@ -40,6 +40,7 @@ import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { ValidaVotacionPipe } from './pipes/valida-votacion.pipe';
 
 
 @NgModule ( {
@@ -62,7 +63,8 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     CandidatoComponent,
     CandidatosComponent,
     SinfotoPipe,
-    KeysPipe
+    KeysPipe,
+    ValidaVotacionPipe
   ],
   imports     : [
     BrowserModule,

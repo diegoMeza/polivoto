@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
 import * as moment from "../../../../functions/node_modules/moment/moment";
 import { Eleccion } from "../../interfaces/eleccion";
 import { AuthService } from "../../services/auth.service";
 import { EleccionService } from "../../services/eleccion.service";
+// import * as moment from "../../../../functions/node_modules/moment/moment";
 import { UsuarioService } from "../../services/usuario.service";
 
 
@@ -16,6 +18,7 @@ export class EleccionesComponent implements OnInit {
   
   elecciones : Eleccion[] = [];
   loading : boolean = true;
+  listaElecciones : Observable<Array<Eleccion>>;
   @Input () usuario : any;
   
   constructor ( private _eleccionServices : EleccionService,
@@ -40,27 +43,34 @@ export class EleccionesComponent implements OnInit {
     //     // console.log ( this.elecciones );
     //     this.loading = false;
     //   } );
-    this._usuarioService.obtenerUsuarioporEmail ( this._authServices.user )
-      .subscribe ( ( eleccion ) => {
-        this.elecciones = eleccion.map ( ( usuario ) => {
-          
-          this._eleccionServices.getElecciones ( usuario )
+    this.listaElecciones = new Observable ( ( observer ) => {
+        observer.next (
+          this._usuarioService.obtenerUsuarioporEmail ( this._authServices.user )
             .subscribe ( ( eleccion ) => {
-              this.elecciones = eleccion.map ( ( data ) => {
-                // data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
-                data.feCierre = moment ( data.feCierre ).format ( "DD/MM/YYYY" );
-                return data;
+              eleccion.map ( ( usuario ) => {
+                this._eleccionServices.getElecciones ( usuario )
+                  .subscribe ( ( eleccion ) => {
+                    this.elecciones = eleccion.map ( ( data ) => {
+                      data.feInicio = moment ( data.feInicio ).format ( "DD/MM/YYYY" );
+                      data.feCierre = moment ( data.feCierre ).format ( "DD/MM/YYYY" );
+                      return data;
+                    } );
+                    // console.log ( this.elecciones );
+                    this.loading = false;
+                  } );
+                
               } );
-              // console.log ( this.elecciones );
-              this.loading = false;
-            } );
-          
-        } );
-      } );
+            } )
+        );
+      }
+    );
+    
+    this.listaElecciones.subscribe ();
   }
   
   realizarIncripcion ( datos : any ) {
     // console.log ( datos.$key );
+    console.log ( datos );
     this.router.navigate ( [ "/inscripcion", datos.$key ] );
   }
   
@@ -78,6 +88,7 @@ export class EleccionesComponent implements OnInit {
     // console.log ( datos.$key );
     this.router.navigate ( [ "/candidatos", datos.$key ] );
   }
+  
   
   /**
    * Convierte un fecha en timestamp
