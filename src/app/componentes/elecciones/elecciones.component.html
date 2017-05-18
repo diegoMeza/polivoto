@@ -81,8 +81,8 @@
           <th>Inscripción</th>
           <!--<th *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false">Editar</th>-->
           <th *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false">Editar</th>
-          <th>Votar</th>
           <th>Candidatos</th>
+          <th>Votar</th>
         </tr>
         </thead>
         <tbody class="text-center">
@@ -112,16 +112,17 @@
           </td>
           <td>
             <div class="text-center">
-              <button class="btn btn-outline-primary puntero"
-                      (click)="realizarVotacion(eleccion)"
-              >Votar <i class="fa fa-check" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-info puntero"
+                      (click)="verCandidatos(eleccion)"
+              >Ver <i class="fa fa-eye" aria-hidden="true"></i></button>
             </div>
           </td>
           <td>
             <div class="text-center">
-              <button class="btn btn-outline-info puntero"
-                      (click)="verCandidatos(eleccion)"
-              >Ver <i class="fa fa-eye" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-primary puntero"
+                      (click)="realizarVotacion(eleccion)"
+                      [disabled]="texto | validaSiVoto:_authServices.user:eleccion.listaSufragantes"
+              >Votar <i class="fa fa-check" aria-hidden="true"></i></button>
             </div>
           </td>
 

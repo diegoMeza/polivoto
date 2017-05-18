@@ -39,4 +39,9 @@ export class EleccionService {
   actualizarEleccion ( eleccion : Eleccion, id : string ) {
     return this.af.database.list ( "elecciones" ).update ( id, eleccion );
   }
+  
+  actualizarVotante ( votante : any, idEleccion : string, id : any ) {
+    return this.af.database.list ( `elecciones/${idEleccion}/listaSufragantes/` ).update ( id, votante );
+  }
+  
 }

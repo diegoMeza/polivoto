@@ -7,6 +7,67 @@
 
 <hr>
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+          <th>No. Votación</th>
+          <th>Candidato</th>
+          <th>Nombre</th>
+          <th>Propuesta</th>
+          <th class="text-right w120">Seleccionar</th>
+        </tr>
+
+        </thead>
+        <tbody class="text-center">
+
+        <tr *ngFor="let cand of candidatos; let i = index">
+          <td class="align-middle">{{ cand.idListaVotacion }}</td>
+          <td>
+            <div class="text-center">
+              <img class="rounded img-candidato" src="{{cand.img | sinfoto}}" alt="...">
+            </div>
+          </td>
+          <td class="align-middle">{{ cand.nombre }}</td>
+          <td class="align-middle">{{ cand.propuesta | sinpropuesta}}</td>
+
+          <td class="text-right w120 align-middle">
+            <md-radio-group class="example-radio-group"
+                            [(ngModel)]="idCandidato">
+              <md-radio-button class="example-radio-button"
+                               [value]="cand.id"
+                               (change)="seleccionarCandidato($event)"
+                               [disabled]="isVotante"
+              >
+              </md-radio-button>
+            </md-radio-group>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-info"
+           role="alert"
+           *ngIf="(candidatos)?.length === 0 && !loading"
+      >
+        <strong>No hay más registros</strong>
+      </div>
+
+      <div class="alert alert-warning"
+           *ngIf="loading"
+      >
+        <strong>Cargando...</strong>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
 <div class="row animated fadeIn fast">
   <div class="col-md-12">
 
@@ -19,7 +80,9 @@
                           [(ngModel)]="voto"
                           #tipo="ngModel"
                           name="tipo"
+                          (change)="seleccionarVoto($event)"
                           required
+                          [disabled]="isVotante"
           >
             <md-radio-button class="example-radio-button margen-derecho-15"
                              *ngFor="let voto of tipoVotacion"
@@ -36,9 +99,9 @@
         <div class="col-6">
           <button class="btn btn-outline-success puntero"
                   (click)="guardar(forma)"
-                  [disabled]="(!(this.fechaActual > this.eleccion.feCierre) || !forma.valid )"
-
+                  [disabled]="isVotante"
           >
+            <!--[disabled]="(!(this.fechaActual > this.eleccion.feCierre) || !forma.valid )"-->
             <!--[disabled]="!forma.valid"-->
             Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>

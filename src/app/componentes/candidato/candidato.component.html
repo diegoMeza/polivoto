@@ -1,19 +1,27 @@
 <div class="container main-container animated fadeIn fast">
   <div class="row">
     <div class="col-md-3">
-      <img [src]="candidato.img" class="img-thumbnail img-circle">
+      <img [src]="candidato.img | sinfoto" class="img-thumbnail img-circle">
       <!--<img [src]="candidato.img | sinfoto" class="img-thumbnail img-circle">-->
       <br>
     </div>
     <div class="col-md-9">
-      <h3>{{candidato.nombre}}
+      <h3>
+        <small class="text-primary">Numero de Elección: {{candidato.idListaVotacion}}</small>
+        <br>
+        {{candidato.nombre}}
         <br>
         <small>Genero: {{candidato.genero}}</small>
         <br>
         <small>Fecha de Nacimiento: {{candidato.feNacimiento | date:'dd-MMMM-yyyy' }}</small>
-        <br>
-        <small>Numero de Elección: {{candidato.idListaVotacion}}</small>
+
       </h3>
+      <p class="text-muted">
+        <span class="propuesta">
+          Propuesta:
+        </span>
+        {{candidato.propuesta}}
+      </p>
       <hr>
 
       <a class="btn btn-outline-danger"

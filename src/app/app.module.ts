@@ -42,6 +42,8 @@ import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { PropuestaPipe } from './pipes/propuesta.pipe';
+import { ValidaSiVotoPipe } from './pipes/valida-si-voto.pipe';
 
 
 @NgModule ( {
@@ -65,7 +67,9 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
     CandidatosComponent,
     SinfotoPipe,
     KeysPipe,
-    ValidaVotacionPipe
+    ValidaVotacionPipe,
+    PropuestaPipe,
+    ValidaSiVotoPipe
   ],
   imports     : [
     BrowserModule,

@@ -17,14 +17,17 @@ export class VotacionComponent implements OnInit {
   votacion : any = {};
   tipoVotacion : any[] = [];
   id : string;
-  private subscription : Subscription;
   msgs : Message[] = [];
   eleccion : any = {};
-  voto : string;
+  voto : string = "";
   fechaActual : any;
   sufragantes : any[];
   votantes : any[];
   isVotante : boolean;
+  // candidatos : Candidato[] = [];
+  candidatos : any[] = [];
+  idCandidato : string = "";
+  private subscription : Subscription;
   
   constructor ( private _eleccionService : EleccionService,
                 private _votoService : VotoService,
@@ -41,10 +44,15 @@ export class VotacionComponent implements OnInit {
             .subscribe ( item => {
               // console.log ( item );
               this.eleccion = item;
-              if ( this.eleccion.listaVotos.sufragantes == null ) {
+              if ( this.eleccion.listaSufragantes == null ) {
                 this.sufragantes = [];
               } else {
-                this.sufragantes = this.eleccion.listaVotos.sufragantes;
+                this.sufragantes = this.eleccion.listaSufragantes;
+              }
+              if ( this.eleccion.listaCandidatos == null ) {
+                this.candidatos = [];
+              } else {
+                this.candidatos = this.eleccion.listaCandidatos;
               }
             } );
         }
@@ -72,36 +80,77 @@ export class VotacionComponent implements OnInit {
   
   guardar ( forma : NgForm ) {
     // console.log ( "envio: ", forma );
-    console.log ( this.eleccion.listaCandidatos );
+    // console.log ( this.eleccion.$key );
+    let candSeleccionado = {};
+    let listaVotos = this.eleccion.listaVotos;
+    let sufragante = {
+      id    : "",
+      isVoto: false,
+      nombre: ""
+    };
+    
     // console.log ( this.voto );
-    
-    for ( let votante of this.sufragantes ) {
-      if ( votante == this._authServices.user.uid ) {
-        this.isVotante = true;
-      } else {
-        this.isVotante = false;
+    // console.log ( this.idCandidato );
+    // console.log ( this.candidatos );
+    if ( !(this.idCandidato == "" && this.voto == "") ) {
+      
+      if ( this.voto ) {
+        if ( this.voto == "Anulado" ) {
+          candSeleccionado = {
+            nombre         : this.voto,
+            nombreCandidato: this.voto,
+            valor          : 1
+          };
+        } else {
+          candSeleccionado = {
+            nombre         : this.voto,
+            nombreCandidato: this.voto,
+            valor          : 1
+          };
+        }
       }
-    }
-    
-    if ( !this.isVotante ) {
-      if ( this.voto == "Anulado" ) {
-        this.eleccion.listaVotos.anunulo = this.eleccion.listaVotos.anunulo + 1 | 1;
-      } else if ( this.voto == "A Favor" ) {
-        this.eleccion.listaVotos.valido = this.eleccion.listaVotos.valido + 1 | 1;
-      } else {
-        this.eleccion.listaVotos.blanco = this.eleccion.listaVotos.blanco + 1 | 1;
+      
+      if ( this.idCandidato ) {
+        for ( let candidato of this.candidatos ) {
+          if ( candidato.id == this.idCandidato ) {
+            candSeleccionado = {
+              nombre         : "Positivo",
+              nombreCandidato: candidato.nombre,
+              valor          : 1
+            };
+            
+          }
+        }
       }
-      this.sufragantes.push ( this._authServices.user.uid );
-      this.eleccion.listaVotos.sufragantes = this.sufragantes;
-      this.sufragantes = [];
+      
+      if ( listaVotos[ 0 ] == 0 ) {
+        listaVotos = [];
+        listaVotos.push ( candSeleccionado );
+      } else {
+        listaVotos.push ( candSeleccionado );
+      }
+      
+      // console.log ( listaVotos );
+      // console.log ( this.sufragantes );
+      let i = 0;
+      for ( let votante of this.sufragantes ) {
+        if ( votante.id == this._authServices.user.uid ) {
+          sufragante = votante;
+          sufragante.isVoto = true;
+          // console.log ( sufragante );
+          // this._eleccionService.actualizarVotante ( sufragante, this.eleccion.$key, i );
+          this.isVotante = true;
+        }
+        i++;
+      }
       
       if ( this.id !== "nuevo" ) {
+        this.eleccion.listaVotos = listaVotos;
         // Actualizando
-        console.log ( this.eleccion, this.id );
+        // console.log ( this.eleccion, this.id );
         this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
-          .then ( data => {
+          .then ( () => {
               this.mensajeGuardado ();
-              this.router.navigate ( [ "/elecciones" ] );
             },
             error => {
               console.log ( error );
@@ -109,9 +158,39 @@ export class VotacionComponent implements OnInit {
             } );
       }
     } else {
-      this.sufragantes = [];
-      this.router.navigate ( [ "/elecciones" ] );
+      this.mensajeErrorParametro ( "Seleccione un Candidato o un tipo de voto" );
     }
+    
+    //
+    // if ( !this.isVotante ) {
+    //   if ( this.voto == "Anulado" ) {
+    //     this.eleccion.listaVotos.anunulo = this.eleccion.listaVotos.anunulo + 1 | 1;
+    //   } else if ( this.voto == "A Favor" ) {
+    //     this.eleccion.listaVotos.valido = this.eleccion.listaVotos.valido + 1 | 1;
+    //   } else {
+    //     this.eleccion.listaVotos.blanco = this.eleccion.listaVotos.blanco + 1 | 1;
+    //   }
+    //   this.sufragantes.push ( this._authServices.user.uid );
+    //   this.eleccion.listaVotos.sufragantes = this.sufragantes;
+    //   this.sufragantes = [];
+    //
+    //   if ( this.id !== "nuevo" ) {
+    //     // Actualizando
+    //     console.log ( this.eleccion, this.id );
+    //     this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
+    //       .then ( data => {
+    //           this.mensajeGuardado ();
+    //           this.router.navigate ( [ "/elecciones" ] );
+    //         },
+    //         error => {
+    //           console.log ( error );
+    //           this.mensajeError ();
+    //         } );
+    //   }
+    // } else {
+    //   this.sufragantes = [];
+    //   this.router.navigate ( [ "/elecciones" ] );
+    // }
   }
   
   mensajeGuardado () {
@@ -124,6 +203,24 @@ export class VotacionComponent implements OnInit {
     this.msgs.push ( { severity: "error", summary: "Mensaje", detail: "se ha producido un error...!" } );
   }
   
+  mensajeErrorParametro ( mensaje : string ) {
+    this.msgs = [];
+    this.msgs.push ( { severity: "error", summary: "Mensaje", detail: mensaje } );
+  }
+  
+  seleccionarVoto ( voto : any ) {
+    // console.log ( voto.value );
+    if ( voto.value.length > 0 ) {
+      this.idCandidato = "";
+    }
+  }
+  
+  seleccionarCandidato ( candidato : any ) {
+    // console.log ( candidato.value );
+    if ( candidato.value.length > 0 ) {
+      this.voto = "";
+    }
+  }
 }
 
 
