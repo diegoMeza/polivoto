@@ -1,14 +1,14 @@
 import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule, JsonpModule } from "@angular/http";
-import { MdCheckboxModule, MdRadioModule, MdSelectModule, MdTabsModule } from "@angular/material";
+import { MdCardModule, MdCheckboxModule, MdRadioModule, MdSelectModule, MdSlideToggleModule, MdTabsModule } from "@angular/material";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MomentModule } from "angular2-moment";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
 import "hammerjs";
-import { ButtonModule, CalendarModule, CaptchaModule, CheckboxModule, DataTableModule, GrowlModule, SharedModule } from "primeng/primeng";
+import { ButtonModule, CalendarModule, CaptchaModule, CheckboxModule, DataTableModule, FileUploadModule, GrowlModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
@@ -31,8 +31,10 @@ import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { SinfotoPipe } from "./pipes/sinfoto.pipe";
+import { ValidaVotacionPipe } from "./pipes/valida-votacion.pipe";
 import { AuthService } from "./services/auth.service";
 import { CandidatoService } from "./services/candidato.service";
+import { CargarImagenService } from "./services/cargar-imagen.service";
 import { EleccionService } from "./services/eleccion.service";
 import { ObtenerIpService } from "./services/obtener-ip.service";
 import { UsuarioService } from "./services/usuario.service";
@@ -40,7 +42,6 @@ import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
-import { ValidaVotacionPipe } from './pipes/valida-votacion.pipe';
 
 
 @NgModule ( {
@@ -86,7 +87,10 @@ import { ValidaVotacionPipe } from './pipes/valida-votacion.pipe';
     MdRadioModule,
     MdSelectModule,
     CaptchaModule,
-    JsonpModule
+    JsonpModule,
+    MdSlideToggleModule,
+    MdCardModule,
+    FileUploadModule
   ],
   providers   : [ { provide: LOCALE_ID, useValue: "es" },
     VotacionService,
@@ -95,7 +99,8 @@ import { ValidaVotacionPipe } from './pipes/valida-votacion.pipe';
     UsuarioService,
     EleccionService,
     CandidatoService,
-    ObtenerIpService
+    ObtenerIpService,
+    CargarImagenService
   ],
   bootstrap   : [ AppComponent ]
 } )

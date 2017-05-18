@@ -1,9 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+// import * as firebase from "firebase";
+import * as firebase from "firebase";
 import { Message } from "primeng/primeng";
 import { Subscription } from "rxjs/Subscription";
+import { FileItem } from "../../interfaces/FileItem";
 import { AuthService } from "../../services/auth.service";
+import { CargarImagenService } from "../../services/cargar-imagen.service";
 import { EleccionService } from "../../services/eleccion.service";
 
 @Component ( {
@@ -21,13 +25,40 @@ export class InscripcionComponent implements OnInit {
   listaCandTemp : any[] = [];
   listaSufraTemp : any[] = [];
   flag : boolean = false;
+  //Check
+  color = "accent";
+  checked = false;
+  disabled = false;
+  //Valiadacion Usuarios
+  esCandidato : boolean = false;
+  esSufragante : boolean = false;
+  seleccionCandidato : boolean = false;
+  seleccionSufragante : boolean = false;
+  // Archivos Cargados
+  archivos : FileItem[] = [];
+  // rutaImagen : string = "https://firebasestorage.googleapis.com/v0/b/poli-voto.appspot.com/o/img%2Fnoimage.png?alt=media&token=9eeb03bc-f2ff-44d1-a56a-ea56fc29899c";
+  rutaImagen : string = "";
+  // Candidato
+  tempCand : any = {
+    nombre         : this._authServices.user.nombre,
+    id             : this._authServices.user.uid,
+    img            : this.rutaImagen,
+    genero         : this._authServices.user.genero,
+    idListaVotacion: this.eleccion.candidatosInscritos,
+    feNacimiento   : this._authServices.user.fechaNacimiento,
+    isVoto         : false,
+    propuesta      : ""
+  };
+  private CARPETAIMAGENES : string = "img";
   private subscription : Subscription;
   
   constructor ( private _eleccionService : EleccionService,
                 private router : Router,
                 private route : ActivatedRoute,
-                public _authServices : AuthService ) {
+                public _authServices : AuthService,
+                private _cargarImagenService : CargarImagenService ) {
     
+    // console.log ( this._authServices.user.uid );
     
     this.route.params
       .subscribe ( parametro => {
@@ -38,6 +69,9 @@ export class InscripcionComponent implements OnInit {
             .subscribe ( item => {
               // console.log ( item );
               this.eleccion = item;
+              
+              
+              console.log ( "Eleccion", item );
               if ( !(this.eleccion.candidatosInscritos <= this.eleccion.noCandidatos) ) {
                 this.loading = true;
                 this.inscripcion.tipo = 1;
@@ -46,12 +80,32 @@ export class InscripcionComponent implements OnInit {
                 this.listaCandTemp = [];
               } else {
                 this.listaCandTemp = this.eleccion.listaCandidatos;
+                // console.log ( this.listaCandTemp );
+                for ( let candidato of this.listaCandTemp ) {
+                  
+                  if ( candidato.id == this._authServices.user.uid ) {
+                    this.rutaImagen = candidato.img;
+                    // console.log ( candidato.propuesta );
+                    this.esCandidato = true;
+                    this.seleccionCandidato = true;
+                    this.tempCand.propuesta = candidato.propuesta;
+                    
+                  }
+                }
               }
               
               if ( this.eleccion.listaSufragantes == null ) {
                 this.listaSufraTemp = [];
               } else {
                 this.listaSufraTemp = this.eleccion.listaSufragantes;
+                // console.log ( this.listaSufraTemp );
+                for ( let sufragante of this.listaSufraTemp ) {
+                  if ( sufragante.id == this._authServices.user.uid ) {
+                    this.esSufragante = true;
+                    this.seleccionSufragante = true;
+                  }
+                }
+                
               }
               
             } );
@@ -68,7 +122,8 @@ export class InscripcionComponent implements OnInit {
     // console.log ( "envio: ", forma );
     console.log ( forma.value );
     // console.log ( this.id );
-    if ( this.inscripcion.tipo > 0 ) {
+    if ( this.seleccionSufragante ) {
+      // if ( this.inscripcion.tipo > 0 ) {
       this.estaInscrito ( this._authServices.user.uid, this.listaSufraTemp );
       if ( this.flag ) {
         this.eleccion.sufragantesInscritos = this.eleccion.sufragantesInscritos + 1 | 1;
@@ -78,31 +133,45 @@ export class InscripcionComponent implements OnInit {
           isVoto  : false,
           inscrito: true
         };
-        this.listaSufraTemp.push ( tempSufr );
+        if ( this.listaSufraTemp[ 0 ] == 0 ) {
+          this.listaSufraTemp = [];
+          this.listaSufraTemp.push ( tempSufr );
+        } else {
+          this.listaSufraTemp.push ( tempSufr );
+        }
+        
         this.eleccion.listaSufragantes = this.listaSufraTemp;
-        tempSufr = null;
+        // tempSufr = null;
       }
-    } //else {
-    //   this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
-    //   if ( this.flag ) {
-    //     this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1 | 1;
-    //     let tempCand = {
-    //       nombre         : this._authServices.user.nombre,
-    //       id             : this._authServices.user.uid,
-    //       img            : "https://firebasestorage.googleapis.com/v0/b/poli-voto.appspot.com/o/noimage.png?alt=media&token=3d756b53-845f-4dcb-bdd1-a6cb3ffd3be1",
-    //       genero         : this._authServices.user.genero,
-    //       idListaVotacion: this.eleccion.candidatosInscritos,
-    //       feNacimiento   : this._authServices.user.fechaNacimiento,
-    //       isVoto         : false
-    //     };
-    //     this.listaCandTemp.push ( tempCand );
-    //     this.eleccion.listaCandidatos = this.listaCandTemp;
-    //     tempCand = null;
-    //   }
-    // }
+    }
+    if ( this.seleccionCandidato ) {
+      this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
+      if ( this.flag ) {
+        this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1 | 1;
+        this.tempCand = {
+          nombre         : this._authServices.user.nombre,
+          id             : this._authServices.user.uid,
+          img            : this.rutaImagen,
+          genero         : this._authServices.user.genero,
+          idListaVotacion: this.eleccion.candidatosInscritos,
+          feNacimiento   : this._authServices.user.fechaNacimiento,
+          isVoto         : false,
+          propuesta      : "Sin Comentarios"
+        };
+        
+        if ( this.listaCandTemp[ 0 ] == 0 ) {
+          this.listaCandTemp = [];
+          this.listaCandTemp.push ( this.tempCand );
+        } else {
+          this.listaCandTemp.push ( this.tempCand );
+        }
+        this.eleccion.listaCandidatos = this.listaCandTemp;
+        // this.tempCand = null;
+      }
+    }
     if ( this.flag ) {
       this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
-        .then ( data => {
+        .then ( () => {
             this.mensajeGuardado ();
             this.router.navigate ( [ "/elecciones" ] );
           },
@@ -139,6 +208,35 @@ export class InscripcionComponent implements OnInit {
       this.flag = true;
       return this.flag;
     }
+  }
+  
+  onUpload ( archivosLista ) {
+    console.log ( archivosLista.target.files[ 0 ] );
+    for ( let propiedad of archivosLista.target.files ) {
+      let nuevoArchivo = new FileItem ( propiedad );
+      this.archivos.push ( nuevoArchivo );
+      
+    }
+    console.log ( this.archivos );
+    let storageRef = firebase.storage ().ref ();
+    for ( let item of this.archivos ) {
+      let uploadTask : firebase.storage.UploadTask =
+            storageRef.child ( `/${this.CARPETAIMAGENES}/${item.nombreArchivo}` )
+              .put ( item.archivo );
+      uploadTask.on ( firebase.storage.TaskEvent.STATE_CHANGED,
+        ( snapshot ) => item.progreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+        ( error ) => console.log ( "Error al subir", error ),
+        () => {
+          item.url = uploadTask.snapshot.downloadURL;
+          this.rutaImagen = uploadTask.snapshot.downloadURL;
+          console.log ( this.rutaImagen );
+          // this.guardarImagenes ( { nombre: item.nombreArchivo, url: item.url } );
+        }
+      );
+    }
+    
+    this.msgs = [];
+    this.msgs.push ( { severity: "info", summary: "File Uploaded", detail: "" } );
   }
   
 }

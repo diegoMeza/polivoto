@@ -27,7 +27,7 @@ export class ValidaVotacionPipe implements PipeTransform {
       
       if ( (new Date ().getTime () > listaElecciones.feCierreInscripcion) ) {
         return true;
-        
+        // return false;
       } else {
         
         this.listaCandidatos = listaElecciones.listaCandidatos;

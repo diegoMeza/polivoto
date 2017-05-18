@@ -12,28 +12,68 @@
 <div class="row animated fadeIn fast">
   <div class="col-md-12">
 
-    <form #forma="ngForm" novalidate="">
+    <form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
 
       <div class="form-group row">
-        <!--[ngClass]="{ 'has-danger':(nombre.errors?.required  || nombre.errors?.minlength) && nombre.touched }">-->
-        <label class="col-4 col-form-label text-right">Tipo de Inscripción</label>
-        <div class="col-6">
 
-          <md-radio-group class="example-radio-group"
-                          [(ngModel)]="inscripcion.tipo"
-                          #tipo="ngModel"
-                          name="tipo"
-                          required
-                          [disabled]="loading"
-          >
-            <md-radio-button class="example-radio-button margen-derecho-15"
-                             *ngFor="let inscripcion of tipoInscripcion"
-                             [value]="inscripcion.valor">
-              {{inscripcion.nombre}}
-            </md-radio-button>
-          </md-radio-group>
+        <label class="col-4 col-form-label text-right titulo-inscripcion">
+          Tipo de Inscripción
+          <small>{{eleccion.nombre}}</small>
+        </label>
+        <div class="col-8">
+          <div class="col-6">
 
+            <!--<md-radio-group class="example-radio-group"-->
+            <!--[(ngModel)]="inscripcion.tipo"-->
+            <!--#tipo="ngModel"-->
+            <!--name="tipo"-->
+            <!--required-->
+            <!--[disabled]="loading"-->
+            <!--&gt;-->
+            <!--<md-radio-button class="example-radio-button margen-derecho-15"-->
+            <!--*ngFor="let inscripcion of tipoInscripcion"-->
+            <!--[value]="inscripcion.valor">-->
+            <!--{{inscripcion.nombre}}-->
+            <!--</md-radio-button>-->
+            <!--</md-radio-group>-->
+
+            <span class="tipo-inscripcion">
+              Candidato
+            </span>
+            <md-slide-toggle
+              [ngClass]="{ 'text-success': seleccionCandidato, 'text-warning':!seleccionCandidato }"
+              [color]="color"
+              [(ngModel)]="seleccionCandidato"
+              name="esCandidato"
+              [disabled]="eleccion.candidatosInscritos == eleccion.noCandidatos || esCandidato"
+            >
+              <span class="toggle-btn">
+                {{seleccionCandidato == true ? 'Inscrito': 'Sin Inscribir'}}
+              </span>
+            </md-slide-toggle>
+
+          </div>
+          <br>
+          <div class="col-6">
+
+            <span class="tipo-inscripcion">
+              Sufragante
+            </span>
+            <md-slide-toggle
+              [ngClass]="{ 'text-warning': !seleccionSufragante, 'text-success':seleccionSufragante}"
+              [color]="color"
+              [(ngModel)]="seleccionSufragante"
+              name="esSufragante"
+              [disabled]="esSufragante">
+              <span class="toggle-btn">
+                {{seleccionSufragante == true ? 'Inscrito': 'Sin Inscribir'}}
+              </span>
+
+            </md-slide-toggle>
+
+          </div>
         </div>
+
       </div>
 
       <!--<div class="form-group row"-->
@@ -113,17 +153,166 @@
       <!--</div>-->
 
       <!--</div>-->
+      <hr>
 
       <div class="form-group row">
         <label class="col-4 col-form-label text-right"></label>
         <div class="col-6">
-          <button class="btn btn-outline-success puntero"
-                  (click)="guardar(forma)"
+          <div class="row animated fadeIn fast">
+            <div class="col-md-12">
 
+              <md-card class="example-card"
+                       *ngIf="seleccionCandidato"
+              >
+                <md-card-header>
+                  <div md-card-avatar>
+                    <img class="avatar" [src]="rutaImagen | sinfoto">
+                  </div>
+                  <md-card-title>No. Inscripción:
+                    <small>{{eleccion.candidatosInscritos + 1}}</small>
+                  </md-card-title>
+                  <md-card-subtitle>{{tempCand.nombre}}</md-card-subtitle>
+                </md-card-header>
+                <img md-card-image [src]="rutaImagen | sinfoto">
+                <md-card-content>
+                  <span class="tipo-inscripcion">
+                  Propuesta:
+                  </span>
+                  <textarea type="text"
+                            name="propuesta"
+                            [(ngModel)]="tempCand.propuesta"
+                            class="form-control"
+                            required
+                            placeholder="Ingrese su propuesta..."
+                  >
+                  </textarea>
+                </md-card-content>
+                <md-card-actions>
+                  <!--<button class="btn btn-outline-primary puntero btn-block"-->
+                  <!--type="submit"-->
+                  <!--[disabled]="(esSufragante && esCandidato)"-->
+                  <!--&gt;-->
+                  <!--Cargar Imagen <i class="fa fa-floppy-o" aria-hidden="true"></i>-->
+                  <!--</button>-->
+                  <label class="custom-file puntero btn btn-primary">
+                    <!--<input type="file"-->
+                    <!--id="file"-->
+                    <!--class="custom-file-input puntero"-->
+
+                    <!--&gt;-->
+                    <input type="file" (change)="onUpload($event)"
+                           accept=".png, .jpg, .jpeg"
+                           class="custom-file-input puntero btn btn-primary"
+                    >
+                    <span class="custom-file-control puntero btn btn-primary">Click aqui para cargar el archivo</span>
+
+
+                  </label>
+                  <!--<p-fileUpload name="myfile[]" multiple="false"-->
+                  <!--accept="image/*" auto="auto"-->
+                  <!--(change)="onUpload($event)"-->
+                  <!--&gt;-->
+                  <!--</p-fileUpload>-->
+
+
+                </md-card-actions>
+              </md-card>
+
+
+              <!--<div class="form-group">-->
+              <!--<span class="tipo-inscripcion">-->
+              <!--No. Inscripción: <small>{{eleccion.candidatosInscritos + 1}}</small>-->
+              <!--</span>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<span class="tipo-inscripcion">-->
+              <!--Nombre:-->
+              <!--</span>-->
+              <!--<p>{{tempCand.nombre}}</p>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<span class="tipo-inscripcion">-->
+              <!--Género:-->
+              <!--</span>-->
+              <!--<p>{{tempCand.genero}}</p>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<span class="tipo-inscripcion">-->
+              <!--Propuesta:-->
+              <!--</span>-->
+              <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+              <!--&lt;!&ndash;[(ngModel)]="tempCand.propuesta"&ndash;&gt;-->
+              <!--&lt;!&ndash;name="propuesta"&ndash;&gt;-->
+              <!--&lt;!&ndash;placeholder="Ingrese su propuesta..."&ndash;&gt;-->
+              <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+              <!--<textarea type="text"-->
+              <!--name="propuesta"-->
+              <!--[(ngModel)]="tempCand.propuesta"-->
+              <!--class="form-control"-->
+              <!--placeholder="Ingrese su propuesta..."-->
+              <!--&gt;-->
+              <!--</textarea>-->
+              <!--</div>-->
+
+
+              <!--<div class="form-group">-->
+              <!--<label>Casa</label>-->
+              <!--<select name="casa"-->
+              <!--[(ngModel)]="heroe.casa"-->
+              <!--class="form-control">-->
+              <!--<option value="Marvel">Marvel</option>-->
+              <!--<option value="DC">DC</option>-->
+              <!--</select>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<label>Bio</label>-->
+              <!--<textarea type="text"-->
+              <!--name="bio"-->
+              <!--[(ngModel)]="heroe.bio"-->
+              <!--class="form-control"-->
+              <!--placeholder="Bio"-->
+              <!--&gt;</textarea>-->
+              <!--</div>-->
+
+              <!--<div class="form-group">-->
+              <!--<button class="btn btn-outline-success"-->
+              <!--type="submit"-->
+              <!--[disabled]="!forma.valid"-->
+              <!--&gt;-->
+              <!--Guardar Cambios-->
+              <!--</button>-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label text-right"></label>
+        <div class="col-6">
+          <button class="btn btn-outline-success puntero btn-block"
+                  type="submit"
+                  *ngIf="seleccionSufragante"
+                  [disabled]="(esSufragante && esCandidato)"
           >
             <!--[disabled]="!forma.valid"-->
             Guardar Cambios <i class="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
+          <!--<button class="btn btn-outline-success puntero btn-block"-->
+          <!--type="submit"-->
+          <!--*ngIf="seleccionCandidato"-->
+          <!--[disabled]="(!forma.valid&& tempCand.propuesta.length > 0 )"-->
+          <!--&gt;-->
+          <!--&lt;!&ndash;[disabled]="!forma.valid"&ndash;&gt;-->
+          <!--Guardar Cambis <i class="fa fa-floppy-o" aria-hidden="true"></i>-->
+          <!--</button>-->
+
+          <hr>
         </div>
       </div>
 
@@ -132,3 +321,4 @@
 </div>
 
 <p-growl [value]="msgs"></p-growl>
+<!--(click)="guardar(forma)"-->

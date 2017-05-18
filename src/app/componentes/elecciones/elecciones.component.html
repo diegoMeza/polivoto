@@ -69,12 +69,13 @@
       <!--</p-dataTable>-->
 
       <table class="table">
-        <thead class="thead-inverse">
+        <thead class="thead-inverse text-center">
         <tr>
           <th>#</th>
           <th>Nombre Elección</th>
           <th>Limite de Candidatos</th>
           <th>No. Candidatos Inscritos</th>
+          <th>No. Sufragantes Inscritos</th>
           <th>Fecha Inscripción</th>
           <th>Fecha Votación</th>
           <th>Inscripción</th>
@@ -84,13 +85,14 @@
           <th>Candidatos</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         <!--<tr *ngFor="let k of heroes| keys; let i = index">-->
         <tr *ngFor="let eleccion of elecciones; let i = index ">
           <td>{{i+1}}</td>
           <td>{{eleccion.nombre}}</td>
           <td>{{eleccion.noCandidatos}}</td>
           <td>{{eleccion.candidatosInscritos}}</td>
+          <td>{{eleccion.sufragantesInscritos}}</td>
           <td>{{eleccion.feInicio}}</td>
           <td>{{eleccion.feCierre}}</td>
           <td>

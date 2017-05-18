@@ -20,9 +20,10 @@ export class EleccionComponent implements OnInit {
   eleccion : any = {};
   nuevo : boolean = false;
   id : string;
-  private subscription : Subscription;
   msgs : Message[] = [];
   empresas = [];
+  
+  private subscription : Subscription;
   
   constructor ( private _eleccionService : EleccionService,
                 private router : Router,
@@ -69,8 +70,8 @@ export class EleccionComponent implements OnInit {
         valido : 0,
         anunulo: 0
       };
-      this.eleccion.candidatosInscritos = 0;
-      this.eleccion.sufragantesInscritos = 0;
+      this.eleccion.candidatosInscritos = [ 0 ];
+      this.eleccion.sufragantesInscritos = [ 0 ];
       console.log ( "Asignando fecha: ", this.eleccion );
       this._eleccionService.nuevaEleccion ( this.eleccion )
         .then ( () => {
