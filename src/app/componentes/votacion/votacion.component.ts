@@ -27,6 +27,7 @@ export class VotacionComponent implements OnInit {
   // candidatos : Candidato[] = [];
   candidatos : any[] = [];
   idCandidato : string = "";
+  loading : boolean = true;
   private subscription : Subscription;
   
   constructor ( private _eleccionService : EleccionService,
@@ -53,6 +54,7 @@ export class VotacionComponent implements OnInit {
                 this.candidatos = [];
               } else {
                 this.candidatos = this.eleccion.listaCandidatos;
+                this.loading = false;
               }
             } );
         }
