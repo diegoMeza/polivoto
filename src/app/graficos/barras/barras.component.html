@@ -1,3 +1,61 @@
-<p>
-  barras works!
-</p>
+<h3>Resultados Votación</h3>
+<button class="btn btn-outline-danger puntero"
+        [routerLink]="['/elecciones']"
+>
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+</button>
+
+<hr>
+<h3 class="text-primary text-center">{{eleccion.nombre | uppercase}}</h3>
+<div class="row animated fadeIn fast d-flex align-content-center">
+
+  <div class="col-md-2"
+  ></div>
+  <div class="col-md-8"
+       *ngIf="isDataAvailable"
+  >
+
+    <div style="display: block"
+    >
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+
+    </div>
+
+  </div>
+  <div class="col-md-2"
+  ></div>
+</div>
+<hr>
+<div class="row animated fadeIn fast d-flex align-content-center">
+
+  <div class="col-md-2"
+  ></div>
+  <div class="col-md-8"
+       *ngIf="isDataAvailable"
+  >
+
+    <div style="display: block"
+    >
+      <canvas baseChart
+              [data]="polarAreaChartData"
+              [labels]="polarAreaChartLabels"
+              [legend]="polarAreaLegend"
+              [chartType]="polarAreaChartType"
+              [options]="polarAreaChartOptions"
+
+      >
+
+      </canvas>
+
+    </div>
+
+  </div>
+  <div class="col-md-2"
+  ></div>
+</div>

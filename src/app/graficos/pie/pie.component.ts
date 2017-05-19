@@ -21,10 +21,6 @@ export class PieComponent implements OnInit {
   public pieChartLabels : string[] = [];
   public pieChartData : number[] = [];
   public barChartLegend : string;
-  
-  // public pieChartLabels : string[] = [ "Download Sales", "In-Store Sales", "Mail Sales" ];
-  // public pieChartData : number[] = [ 300, 500, 100 ];
-  
   public pieChartType : string = "pie";
   private subscription : Subscription;
   
