@@ -8,6 +8,7 @@ import { MomentModule } from "angular2-moment";
 // Configuracion Firebase
 import { AngularFireModule } from "angularfire2";
 import "hammerjs";
+import { ChartsModule } from "ng2-charts";
 import { ButtonModule, CalendarModule, CaptchaModule, CheckboxModule, DataTableModule, FileUploadModule, GrowlModule, SharedModule } from "primeng/primeng";
 import { firebaseConfig } from "../environments/firebase.config";
 
@@ -29,21 +30,24 @@ import { UsuariosComponent } from "./componentes/usuarios/usuarios.component";
 import { VotacionComponent } from "./componentes/votacion/votacion.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
+import { BarrasComponent } from "./graficos/barras/barras.component";
+import { PieComponent } from "./graficos/pie/pie.component";
 import { KeysPipe } from "./pipes/keys.pipe";
+import { PropuestaPipe } from "./pipes/propuesta.pipe";
 import { SinfotoPipe } from "./pipes/sinfoto.pipe";
+import { ValidaSiVotoPipe } from "./pipes/valida-si-voto.pipe";
 import { ValidaVotacionPipe } from "./pipes/valida-votacion.pipe";
 import { AuthService } from "./services/auth.service";
 import { CandidatoService } from "./services/candidato.service";
 import { CargarImagenService } from "./services/cargar-imagen.service";
 import { EleccionService } from "./services/eleccion.service";
 import { ObtenerIpService } from "./services/obtener-ip.service";
+import { ResultadosService } from "./services/resultados.service";
 import { UsuarioService } from "./services/usuario.service";
 import { VotacionService } from "./services/votacion.service";
 import { VotoService } from "./services/voto.service";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
-import { PropuestaPipe } from './pipes/propuesta.pipe';
-import { ValidaSiVotoPipe } from './pipes/valida-si-voto.pipe';
 
 
 @NgModule ( {
@@ -69,7 +73,9 @@ import { ValidaSiVotoPipe } from './pipes/valida-si-voto.pipe';
     KeysPipe,
     ValidaVotacionPipe,
     PropuestaPipe,
-    ValidaSiVotoPipe
+    ValidaSiVotoPipe,
+    PieComponent,
+    BarrasComponent
   ],
   imports     : [
     BrowserModule,
@@ -94,7 +100,8 @@ import { ValidaSiVotoPipe } from './pipes/valida-si-voto.pipe';
     JsonpModule,
     MdSlideToggleModule,
     MdCardModule,
-    FileUploadModule
+    FileUploadModule,
+    ChartsModule
   ],
   providers   : [ { provide: LOCALE_ID, useValue: "es" },
     VotacionService,
@@ -104,7 +111,8 @@ import { ValidaSiVotoPipe } from './pipes/valida-si-voto.pipe';
     EleccionService,
     CandidatoService,
     ObtenerIpService,
-    CargarImagenService
+    CargarImagenService,
+    ResultadosService
   ],
   bootstrap   : [ AppComponent ]
 } )

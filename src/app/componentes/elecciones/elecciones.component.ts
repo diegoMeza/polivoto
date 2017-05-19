@@ -89,6 +89,16 @@ export class EleccionesComponent implements OnInit {
     this.router.navigate ( [ "/candidatos", datos.$key ] );
   }
   
+  verPie ( datos : any ) {
+    // console.log ( datos.$key );
+    this.router.navigate ( [ "/pie", datos.$key ] );
+  }
+  
+  verBarras ( datos : any ) {
+    // console.log ( datos.$key );
+    this.router.navigate ( [ "/barras", datos.$key ] );
+  }
+  
   
   /**
    * Convierte un fecha en timestamp

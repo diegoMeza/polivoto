@@ -12,6 +12,8 @@ import { UsuariosComponent } from "./componentes/usuarios/usuarios.component";
 import { VotacionComponent } from "./componentes/votacion/votacion.component";
 import { VotoComponent } from "./componentes/voto/voto.component";
 import { VotosComponent } from "./componentes/votos/votos.component";
+import { BarrasComponent } from "./graficos/barras/barras.component";
+import { PieComponent } from "./graficos/pie/pie.component";
 
 const ROUTES : Routes = [
   { path: "home", component: HomeComponent },
@@ -24,6 +26,8 @@ const ROUTES : Routes = [
   { path: "elecciones", component: EleccionesComponent },
   { path: "eleccion/:id", component: EleccionComponent },
   { path: "inscripcion/:id", component: InscripcionComponent },
+  { path: "pie/:id", component: PieComponent },
+  { path: "barras/:id", component: BarrasComponent },
   { path: "votacion/:id", component: VotacionComponent },
   { path: "candidato/:idPrincipal/:idSecundario", component: CandidatoComponent },
   { path: "candidatos/:id", component: CandidatosComponent },
@@ -31,6 +35,8 @@ const ROUTES : Routes = [
   // { path: "artista/:id", component: ArtistaComponent },
   { path: "**", pathMatch: "full", redirectTo: "home" }
 ];
+
 export class RoutingModule {
 }
+
 export const APP_ROUTING = RouterModule.forRoot ( ROUTES, { useHash: true } );

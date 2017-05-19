@@ -83,6 +83,8 @@
           <th *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false">Editar</th>
           <th>Candidatos</th>
           <th>Votar</th>
+          <th>Resultados</th>
+          <th>Histograma</th>
         </tr>
         </thead>
         <tbody class="text-center">
@@ -124,6 +126,21 @@
                       (click)="realizarVotacion(eleccion)"
                       [disabled]="texto | validaSiVoto:_authServices.user:eleccion.listaSufragantes"
               >Votar <i class="fa fa-check" aria-hidden="true"></i></button>
+            </div>
+          </td>
+          <td>
+            <div class="text-center">
+              <button class="btn btn-outline-info puntero"
+                      (click)="verPie(eleccion)"
+              >Ver <i class="fa fa-eye" aria-hidden="true"></i></button>
+            </div>
+          </td>
+
+          <td>
+            <div class="text-center">
+              <button class="btn btn-outline-info puntero"
+                      (click)="verBarras(eleccion)"
+              >Ver <i class="fa fa-eye" aria-hidden="true"></i></button>
             </div>
           </td>
 
