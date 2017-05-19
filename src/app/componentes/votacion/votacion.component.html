@@ -12,13 +12,13 @@
     <div class="table-responsive">
 
       <table class="table">
-        <thead class="thead-inverse">
+        <thead class="thead-inverse ">
         <tr>
-          <th>No. Votación</th>
-          <th>Candidato</th>
-          <th>Nombre</th>
-          <th>Propuesta</th>
-          <th class="text-right w120">Seleccionar</th>
+          <th class="text-center">No. Votación</th>
+          <th class="text-center">Candidato</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Propuesta</th>
+          <th class="text-center w120">Seleccionar Candidato</th>
         </tr>
 
         </thead>
@@ -34,16 +34,18 @@
           <td class="align-middle">{{ cand.nombre }}</td>
           <td class="align-middle">{{ cand.propuesta | sinpropuesta}}</td>
 
-          <td class="text-right w120 align-middle">
-            <md-radio-group class="example-radio-group"
-                            [(ngModel)]="idCandidato">
-              <md-radio-button class="example-radio-button"
-                               [value]="cand.id"
-                               (change)="seleccionarCandidato($event)"
-                               [disabled]="isVotante"
-              >
-              </md-radio-button>
-            </md-radio-group>
+          <td class="w120 align-middle">
+            <div class="text-primary">
+              <md-radio-group class="example-radio-group"
+                              [(ngModel)]="idCandidato">
+                <md-radio-button class="example-radio-button"
+                                 [value]="cand.id"
+                                 (change)="seleccionarCandidato($event)"
+                                 [disabled]="isVotante"
+                >
+                </md-radio-button>
+              </md-radio-group>
+            </div>
           </td>
         </tr>
         </tbody>
@@ -67,14 +69,21 @@
   </div>
 </div>
 
+<div class="bd-callout bd-callout-warning">
+  <h4>Tips</h4>
+  <ul class="text-muted">
+    <li>Seleccione un Candidato para votar a favor</li>
+    <li>Si no desea votar por un candidato seleccione una de las <strong>Otras Opciones de Voto</strong> en blanco o cancelar el voto</li>
+  </ul>
+</div>
 
 <div class="row animated fadeIn fast">
   <div class="col-md-12">
 
     <form #forma="ngForm" novalidate="">
       <div class="form-group row">
-        <label class="col-4 col-form-label text-right">Realizar Voto</label>
-        <div class="col-6">
+        <label class="col-4 col-form-label text-right align-middle"><h4>Otras Opciones de Voto</h4></label>
+        <div class="col-6 d-flex justify-content-center">
 
           <md-radio-group class="example-radio-group"
                           [(ngModel)]="voto"
@@ -96,7 +105,7 @@
 
       <div class="form-group row">
         <label class="col-4 col-form-label text-right"></label>
-        <div class="col-6">
+        <div class="col-6 d-flex justify-content-center">
           <button class="btn btn-outline-success puntero"
                   (click)="guardar(forma)"
                   [disabled]="isVotante"

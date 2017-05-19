@@ -94,6 +94,7 @@ export class InscripcionComponent implements OnInit {
                 }
               }
               
+              // console.log ( this.eleccion.listaSufragantes );
               if ( this.eleccion.listaSufragantes == null ) {
                 this.listaSufraTemp = [];
               } else {
@@ -122,9 +123,11 @@ export class InscripcionComponent implements OnInit {
     // console.log ( "envio: ", forma );
     console.log ( forma.value );
     // console.log ( this.id );
+    // console.log ( this.seleccionSufragante );
     if ( this.seleccionSufragante ) {
       // if ( this.inscripcion.tipo > 0 ) {
       this.estaInscrito ( this._authServices.user.uid, this.listaSufraTemp );
+      // console.log ( this.flag );
       if ( this.flag ) {
         this.eleccion.sufragantesInscritos = this.eleccion.sufragantesInscritos + 1 | 1;
         let tempSufr = {
@@ -133,17 +136,33 @@ export class InscripcionComponent implements OnInit {
           isVoto  : false,
           inscrito: true
         };
+        // console.log ( tempSufr );
+        // console.log ( this.listaSufraTemp[ 0 ] == 0 );
         if ( this.listaSufraTemp[ 0 ] == 0 ) {
           this.listaSufraTemp = [];
           this.listaSufraTemp.push ( tempSufr );
         } else {
           this.listaSufraTemp.push ( tempSufr );
         }
-        
+        console.log ( this.listaSufraTemp );
         this.eleccion.listaSufragantes = this.listaSufraTemp;
         // tempSufr = null;
       }
+      if ( this.flag ) {
+        this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
+          .then ( () => {
+              this.mensajeGuardado ();
+              this.router.navigate ( [ "/elecciones" ] );
+            },
+            error => {
+              console.log ( error );
+              this.mensajeError ();
+            } );
+      } else {
+        this.router.navigate ( [ "/elecciones" ] );
+      }
     }
+    
     if ( this.seleccionCandidato ) {
       this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
       if ( this.flag ) {
@@ -168,19 +187,19 @@ export class InscripcionComponent implements OnInit {
         this.eleccion.listaCandidatos = this.listaCandTemp;
         // this.tempCand = null;
       }
-    }
-    if ( this.flag ) {
-      this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
-        .then ( () => {
-            this.mensajeGuardado ();
-            this.router.navigate ( [ "/elecciones" ] );
-          },
-          error => {
-            console.log ( error );
-            this.mensajeError ();
-          } );
-    } else {
-      this.router.navigate ( [ "/elecciones" ] );
+      if ( this.flag ) {
+        this._eleccionService.actualizarEleccion ( this.eleccion, this.id )
+          .then ( () => {
+              this.mensajeGuardado ();
+              this.router.navigate ( [ "/elecciones" ] );
+            },
+            error => {
+              console.log ( error );
+              this.mensajeError ();
+            } );
+      } else {
+        this.router.navigate ( [ "/elecciones" ] );
+      }
     }
   }
   

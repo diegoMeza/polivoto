@@ -66,8 +66,10 @@ export class EleccionComponent implements OnInit {
       // Insertando
       this.eleccion.fechaCreacion = new Date ().getTime ();
       this.eleccion.listaVotos = [ 0 ];
-      this.eleccion.candidatosInscritos = [ 0 ];
-      this.eleccion.sufragantesInscritos = [ 0 ];
+      this.eleccion.listaCandidatos = [ 0 ];
+      this.eleccion.listaSufragantes = [ 0 ];
+      this.eleccion.sufragantesInscritos = 0;
+      this.eleccion.candidatosInscritos = 0;
       console.log ( "Asignando fecha: ", this.eleccion );
       this._eleccionService.nuevaEleccion ( this.eleccion )
         .then ( () => {

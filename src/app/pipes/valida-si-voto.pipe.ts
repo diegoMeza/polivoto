@@ -7,7 +7,7 @@ export class ValidaSiVotoPipe implements PipeTransform {
   
   transform ( value : any, usuario? : any, listaSufragantes? : any ) : any {
     // console.log ( "Usuario", usuario );
-    // console.log ( "Usuario", listaSufragantes );
+    console.log ( "Usuario", listaSufragantes );
     
     for ( let sufragante of listaSufragantes ) {
       if ( sufragante.id == usuario.uid ) {
@@ -16,6 +16,8 @@ export class ValidaSiVotoPipe implements PipeTransform {
         } else {
           return false;
         }
+      } else {
+        return true;
       }
     }
     

@@ -99,9 +99,10 @@
             <div class="text-center">
               <button class="btn btn-outline-warning puntero"
                       (click)="realizarIncripcion(eleccion)"
-                      [disabled]="texto | validaVotacion:_authServices.user:eleccion"
+
               >Inscribirse <i class="fa fa-calendar-check-o" aria-hidden="true"></i></button>
             </div>
+            <!--[disabled]="texto | validaVotacion:_authServices.user:eleccion"-->
           </td>
           <td *ngIf="(_authServices.user.rolUsuario == 'Admin') ? true: false">
             <div class="text-center">
