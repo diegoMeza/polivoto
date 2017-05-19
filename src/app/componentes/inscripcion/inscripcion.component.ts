@@ -121,7 +121,7 @@ export class InscripcionComponent implements OnInit {
   
   guardar ( forma : NgForm ) {
     // console.log ( "envio: ", forma );
-    console.log ( forma.value );
+    // console.log ( forma.value );
     // console.log ( this.id );
     // console.log ( this.seleccionSufragante );
     if ( this.seleccionSufragante ) {
@@ -162,11 +162,21 @@ export class InscripcionComponent implements OnInit {
         this.router.navigate ( [ "/elecciones" ] );
       }
     }
+    // this.eleccion.propuesta = (this.eleccion.propuesta == "") ? "Sin Comentarios" : this.tempCand.propuesta;
+    // console.log ( this.eleccion.propuesta );
+    
+    // if ( this.eleccion.propuesta == "" ) {
+    //   this.eleccion.propuesta = "Sin Comentarios";
+    // } else {
+    //   this.eleccion.propuesta = this.tempCand.propuesta;
+    // }
+    
+    console.log ( this.eleccion.propuesta );
     
     if ( this.seleccionCandidato ) {
       this.estaInscrito ( this._authServices.user.uid, this.listaCandTemp );
       if ( this.flag ) {
-        this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1 | 1;
+        this.eleccion.candidatosInscritos = this.eleccion.candidatosInscritos + 1;
         this.tempCand = {
           nombre         : this._authServices.user.nombre,
           id             : this._authServices.user.uid,
@@ -175,8 +185,9 @@ export class InscripcionComponent implements OnInit {
           idListaVotacion: this.eleccion.candidatosInscritos,
           feNacimiento   : this._authServices.user.fechaNacimiento,
           isVoto         : false,
-          propuesta      : "Sin Comentarios"
-        };
+          propuesta      : this.eleccion.propuesta == "" ? "Sin Comentarios" : this.tempCand.propuesta
+        }
+        ;
         
         if ( this.listaCandTemp[ 0 ] == 0 ) {
           this.listaCandTemp = [];
